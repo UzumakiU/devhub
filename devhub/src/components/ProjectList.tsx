@@ -1,18 +1,15 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { api } from '@/lib/api'
+import { Project as ApiProject } from '@/types/api'
 
-interface Project {
-  id: number
-  system_id: string
-  display_id: string
-  name: string
+interface Project extends ApiProject {
+  id?: number
+  display_id?: string
   description?: string
-  status: string
   client_id?: number
-  created_at: string
-  updated_at: string
+  updated_at?: string
 }
 
 interface ProjectListProps {
@@ -32,17 +29,13 @@ export default function ProjectList({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    loadProjects()
-  }, [refresh]) // Refresh when refresh prop changes
-
-  const loadProjects = async () => {
+  const loadProjects = useCallback(async () => {
     try {
       setLoading(true)
       const response = await api.getProjects()
       
       if (response.success && response.data) {
-        let projectList = response.data
+        let projectList = response.data as Project[]
         if (limit) {
           projectList = projectList.slice(0, limit)
         }
@@ -56,7 +49,11 @@ export default function ProjectList({
     } finally {
       setLoading(false)
     }
-  }
+  }, [limit])
+
+  useEffect(() => {
+    loadProjects()
+  }, [refresh, loadProjects]) // Refresh when refresh prop changes
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {

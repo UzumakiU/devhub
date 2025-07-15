@@ -56,7 +56,7 @@ export interface TableHealth {
 
 export interface QueryResult {
   columns: string[]
-  rows: any[]
+  rows: Record<string, unknown>[]
   execution_time: number
   row_count: number
 }

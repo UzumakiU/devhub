@@ -2,20 +2,21 @@
 
 import { useState } from 'react'
 import { api } from '@/lib/api'
+import { Project } from '@/types/api'
 
 interface ProjectFormProps {
   onSuccess?: () => void
   onCancel?: () => void
-  project?: any // For editing existing projects
+  project?: Partial<Project> // For editing existing projects
 }
 
 export default function ProjectForm({ onSuccess, onCancel, project }: ProjectFormProps) {
   const [formData, setFormData] = useState({
     name: project?.name || '',
-    description: project?.description || '',
+    description: (project as Record<string, unknown>)?.description as string || '',
     status: project?.status || 'active',
-    start_date: project?.start_date || '',
-    due_date: project?.due_date || ''
+    start_date: (project as Record<string, unknown>)?.start_date as string || '',
+    due_date: (project as Record<string, unknown>)?.due_date as string || ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -26,7 +27,7 @@ export default function ProjectForm({ onSuccess, onCancel, project }: ProjectFor
     setError('')
 
     try {
-      if (project) {
+      if (project?.system_id) {
         // Update existing project
         await api.updateRecord('projects', project.system_id, formData)
       } else {

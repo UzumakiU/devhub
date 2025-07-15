@@ -1,22 +1,19 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { api } from '@/lib/api'
+import { Customer as ApiCustomer } from '@/types/api'
 
-interface Customer {
-  id: number
-  system_id: string
-  name: string
-  email?: string
+interface Customer extends ApiCustomer {
+  id?: number
   phone?: string
   company?: string
   address_line1?: string
   city?: string
   state?: string
   country?: string
-  is_active: boolean
-  created_at: string
-  updated_at: string
+  is_active?: boolean
+  updated_at?: string
 }
 
 interface CustomerListProps {
@@ -38,11 +35,7 @@ export default function CustomerList({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    loadCustomers()
-  }, [refresh])
-
-  const loadCustomers = async () => {
+  const loadCustomers = useCallback(async () => {
     try {
       setLoading(true)
       const response = await api.getCustomers()
@@ -64,7 +57,11 @@ export default function CustomerList({
     } finally {
       setLoading(false)
     }
-  }
+  }, [limit])
+
+  useEffect(() => {
+    loadCustomers()
+  }, [refresh, loadCustomers])
 
   const handleDelete = async (systemId: string) => {
     if (!confirm('Are you sure you want to delete this customer?')) return

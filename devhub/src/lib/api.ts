@@ -1,3 +1,5 @@
+import { ApiResponse, RecordData, CreateRecordData, UpdateRecordData, Customer, Project } from '@/types/api'
+
 class ApiClient {
   private baseUrl = 'http://localhost:8005';
   
@@ -46,18 +48,18 @@ class ApiClient {
   }
 
   // Database table operations
-  async getTableData(tableName: string) {
+  async getTableData(tableName: string): Promise<ApiResponse<RecordData[]>> {
     return this.request(`/api/database/table/${tableName}`);
   }
 
-  async createRecord(tableName: string, data: any) {
+  async createRecord(tableName: string, data: CreateRecordData): Promise<ApiResponse> {
     return this.request(`/api/database/table/${tableName}`, {
       method: 'POST',
       body: JSON.stringify(data),
     });
   }
 
-  async updateRecord(tableName: string, systemId: string, data: any) {
+  async updateRecord(tableName: string, systemId: string, data: UpdateRecordData): Promise<ApiResponse> {
     return this.request(`/api/database/table/${tableName}/${systemId}`, {
       method: 'PUT',
       body: JSON.stringify(data),
@@ -71,28 +73,28 @@ class ApiClient {
   }
 
   // Project methods
-  async getProjects() {
-    return this.getTableData('projects');
+  async getProjects(): Promise<ApiResponse<Project[]>> {
+    return this.getTableData('projects') as Promise<ApiResponse<Project[]>>;
   }
 
-  async createProject(data: any) {
+  async createProject(data: CreateRecordData): Promise<ApiResponse> {
     return this.createRecord('projects', data);
   }
 
-  async updateProject(systemId: string, data: any) {
+  async updateProject(systemId: string, data: UpdateRecordData): Promise<ApiResponse> {
     return this.updateRecord('projects', systemId, data);
   }
 
-  async deleteProject(systemId: string) {
+  async deleteProject(systemId: string): Promise<ApiResponse> {
     return this.deleteRecord('projects', systemId);
   }
 
   // Customer methods
-  async getCustomers() {
-    return this.getTableData('customers');
+  async getCustomers(): Promise<ApiResponse<Customer[]>> {
+    return this.getTableData('customers') as Promise<ApiResponse<Customer[]>>;
   }
 
-  async createCustomer(data: any) {
+  async createCustomer(data: CreateRecordData): Promise<ApiResponse> {
     return this.createRecord('customers', data);
   }
 
@@ -136,7 +138,7 @@ class ApiClient {
     return this.request('/api/database/relationships');
   }
 
-  async createMonitoringAlert(alertData: any) {
+  async createMonitoringAlert(alertData: Record<string, unknown>): Promise<ApiResponse> {
     return this.request('/api/database/monitoring/alert', {
       method: 'POST',
       body: JSON.stringify(alertData),

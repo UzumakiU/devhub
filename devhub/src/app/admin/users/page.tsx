@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
 import Layout from '@/components/Layout'
@@ -20,7 +20,7 @@ interface User {
 }
 
 export default function UserManagementPage() {
-  const { user, token, isLoading, logout, isAuthenticated, isFounder } = useAuth()
+  const { token, isLoading, isAuthenticated, isFounder } = useAuth()
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -38,7 +38,7 @@ export default function UserManagementPage() {
     }
   }, [isLoading, isAuthenticated, isFounder, router])
 
-  const fetchUsers = async () => {
+  const fetchUsers = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:8005/api/admin/users', {
         headers: {
@@ -58,13 +58,13 @@ export default function UserManagementPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
 
   useEffect(() => {
     if (token && isFounder()) {
       fetchUsers()
     }
-  }, [token, isFounder])
+  }, [token, isFounder, fetchUsers])
 
   const handleResetPassword = async () => {
     if (!selectedUser || !newPassword) return
@@ -88,7 +88,7 @@ export default function UserManagementPage() {
         throw new Error(errorData.detail || 'Password reset failed')
       }
 
-      const data = await response.json()
+      await response.json()
       setSuccessMessage(`Password reset successfully for ${selectedUser.display_id}`)
       setShowPasswordModal(false)
       setNewPassword('')

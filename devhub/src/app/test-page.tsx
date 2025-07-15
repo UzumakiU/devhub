@@ -2,8 +2,15 @@
 
 import { useState, useEffect } from 'react'
 
+interface BackendStatus {
+  status: string
+  tenant_id: string
+  port: number
+  [key: string]: unknown
+}
+
 export default function Home() {
-  const [backendStatus, setBackendStatus] = useState<any>(null)
+  const [backendStatus, setBackendStatus] = useState<BackendStatus | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -26,7 +33,8 @@ export default function Home() {
         } else {
           setError(`Backend responded with status: ${response.status}`)
         }
-      } catch (err) {
+      } catch (error) {
+        console.error('Backend connection error:', error)
         setError('Cannot connect to backend. Is it running on port 8005?')
       } finally {
         setLoading(false)

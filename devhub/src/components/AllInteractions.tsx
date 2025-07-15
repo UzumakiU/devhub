@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import useAuth from '@/hooks/useAuth'
 
 interface CustomerInteraction {
@@ -54,13 +54,7 @@ export default function AllInteractions({ onBack, onViewCustomer }: AllInteracti
     { value: 'urgent', label: 'Urgent', color: 'text-red-600 bg-red-100' }
   ]
 
-  useEffect(() => {
-    if (token) {
-      fetchAllInteractions()
-    }
-  }, [token])
-
-  const fetchAllInteractions = async () => {
+  const fetchAllInteractions = useCallback(async () => {
     try {
       setLoading(true)
       // Get all customers first, then fetch their interactions
@@ -94,7 +88,7 @@ export default function AllInteractions({ onBack, onViewCustomer }: AllInteracti
               const interactionsData = await interactionsResponse.json()
               if (interactionsData.success && interactionsData.data) {
                 // Add customer info to each interaction
-                const customerInteractions = interactionsData.data.map((interaction: any) => ({
+                const customerInteractions = interactionsData.data.map((interaction: Record<string, unknown>) => ({
                   ...interaction,
                   customer: {
                     system_id: customer.system_id,
@@ -120,7 +114,13 @@ export default function AllInteractions({ onBack, onViewCustomer }: AllInteracti
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetchAllInteractions()
+    }
+  }, [token, fetchAllInteractions])
 
   const getInteractionTypeInfo = (type: string) => {
     return interactionTypes.find(t => t.value === type) || { value: type, label: type, icon: '📄' }

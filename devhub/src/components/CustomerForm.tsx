@@ -56,12 +56,14 @@ export default function CustomerForm({ customer, onSuccess, onCancel }: Customer
     setError(null)
 
     try {
+      const updateData = { ...formData } as Record<string, unknown>
+      
       if (customer?.system_id) {
         // Update existing customer
-        await api.updateRecord('customers', customer.system_id, formData)
+        await api.updateRecord('customers', customer.system_id, updateData)
       } else {
         // Create new customer
-        await api.createRecord('customers', formData)
+        await api.createRecord('customers', updateData)
       }
       onSuccess()
     } catch (err) {

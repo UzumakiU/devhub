@@ -34,43 +34,43 @@ export default function RecentActivity() {
       const activities: ActivityItem[] = []
 
       // Process projects
-      if (projectsRes.status === 'fulfilled' && projectsRes.value.success) {
-        projectsRes.value.data.slice(0, 3).forEach((project: any) => {
+      if (projectsRes.status === 'fulfilled' && projectsRes.value.success && projectsRes.value.data) {
+        projectsRes.value.data.slice(0, 3).forEach((project: Record<string, unknown>) => {
           activities.push({
             id: `project-${project.system_id}`,
             type: 'project',
-            title: project.name || 'Unnamed Project',
+            title: (project.name as string) || 'Unnamed Project',
             description: `Project ${project.system_id} created`,
-            timestamp: project.created_at,
-            status: project.status
+            timestamp: project.created_at as string,
+            status: project.status as string
           })
         })
       }
 
       // Process customers
-      if (customersRes.status === 'fulfilled' && customersRes.value.success) {
-        customersRes.value.data.slice(0, 3).forEach((customer: any) => {
+      if (customersRes.status === 'fulfilled' && customersRes.value.success && customersRes.value.data) {
+        customersRes.value.data.slice(0, 3).forEach((customer: Record<string, unknown>) => {
           activities.push({
             id: `customer-${customer.system_id}`,
             type: 'customer',
-            title: customer.name || 'Unnamed Customer',
+            title: (customer.name as string) || 'Unnamed Customer',
             description: `Customer ${customer.system_id} added`,
-            timestamp: customer.created_at,
+            timestamp: customer.created_at as string,
             status: customer.is_active ? 'active' : 'inactive'
           })
         })
       }
 
       // Process invoices
-      if (invoicesRes.status === 'fulfilled' && invoicesRes.value.success) {
-        invoicesRes.value.data.slice(0, 3).forEach((invoice: any) => {
+      if (invoicesRes.status === 'fulfilled' && invoicesRes.value.success && invoicesRes.value.data) {
+        invoicesRes.value.data.slice(0, 3).forEach((invoice: Record<string, unknown>) => {
           activities.push({
             id: `invoice-${invoice.system_id}`,
             type: 'invoice',
             title: `Invoice ${invoice.system_id}`,
-            description: `${invoice.currency || 'USD'} ${parseFloat(invoice.amount || 0).toFixed(2)} invoice created`,
-            timestamp: invoice.created_at,
-            status: invoice.status
+            description: `${(invoice.currency as string) || 'USD'} ${parseFloat((invoice.amount as string) || '0').toFixed(2)} invoice created`,
+            timestamp: invoice.created_at as string,
+            status: invoice.status as string
           })
         })
       }

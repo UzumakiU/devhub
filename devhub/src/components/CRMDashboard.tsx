@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import useAuth from '@/hooks/useAuth'
 
 interface CRMAnalytics {
@@ -39,13 +39,7 @@ export default function CRMDashboard({ onViewCustomers, onViewLeads, onViewInter
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    if (token) {
-      fetchAnalytics()
-    }
-  }, [token])
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     try {
       setLoading(true)
       const response = await fetch('http://localhost:8005/api/crm/analytics/dashboard', {
@@ -66,7 +60,13 @@ export default function CRMDashboard({ onViewCustomers, onViewLeads, onViewInter
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      fetchAnalytics()
+    }
+  }, [token, fetchAnalytics])
 
   if (loading) {
     return (

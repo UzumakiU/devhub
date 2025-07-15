@@ -1,20 +1,16 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { api } from '@/lib/api'
+import { Invoice as ApiInvoice } from '@/types/api'
 
-interface Invoice {
-  id: number
-  system_id: string
-  customer_id?: string
-  amount: string
-  currency: string
-  status: string
+interface Invoice extends ApiInvoice {
+  id?: number
+  currency?: string
   issue_date?: string
   due_date?: string
   paid_date?: string
-  created_at: string
-  updated_at: string
+  updated_at?: string
 }
 
 interface InvoiceListProps {
@@ -34,17 +30,13 @@ export default function InvoiceList({
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    loadInvoices()
-  }, [refresh])
-
-  const loadInvoices = async () => {
+  const loadInvoices = useCallback(async () => {
     try {
       setLoading(true)
       const response = await api.getTableData('invoices')
       
       if (response.success && response.data) {
-        let invoiceList = response.data
+        let invoiceList = response.data as Invoice[]
         if (limit) {
           invoiceList = invoiceList.slice(0, limit)
         }
@@ -60,7 +52,11 @@ export default function InvoiceList({
     } finally {
       setLoading(false)
     }
-  }
+  }, [limit])
+
+  useEffect(() => {
+    loadInvoices()
+  }, [refresh, loadInvoices])
 
   const handleDelete = async (systemId: string) => {
     if (!confirm('Are you sure you want to delete this invoice?')) return
@@ -94,12 +90,12 @@ export default function InvoiceList({
     return new Date(dateString).toLocaleDateString()
   }
 
-  const formatAmount = (amount: string, currency: string = 'USD') => {
-    const numAmount = parseFloat(amount) || 0
+  const formatAmount = (amount: string | number, currency: string = 'USD') => {
+    const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: currency
-    }).format(numAmount)
+    }).format(numAmount || 0)
   }
 
   if (loading) {

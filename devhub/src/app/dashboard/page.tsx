@@ -12,7 +12,7 @@ import { api } from '@/lib/api'
 import { featureFlags } from '@/lib/config'
 
 export default function DashboardPage() {
-  const { user, token, isLoading, logout, isAuthenticated, isFounder } = useAuth()
+  const { user, isLoading, isAuthenticated, isFounder } = useAuth()
   const router = useRouter()
   const [stats, setStats] = useState({
     totalProjects: 0,
@@ -115,7 +115,7 @@ export default function DashboardPage() {
               Welcome back, {user?.full_name}! 👋
             </h2>
             <p className="text-gray-600">
-              You're logged in as {user?.email} ({user?.display_id})
+              You&apos;re logged in as {user?.email} ({user?.display_id})
               {isFounder() && ' - Platform Founder'}
               <br />
               Tenant: {user?.tenant_name} • Role: {user?.user_role}
