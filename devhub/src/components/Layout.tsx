@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
-import { config, routes } from '@/lib/config'
+import { config, routes, featureFlags } from '@/lib/config'
 
 interface LayoutProps {
   children: ReactNode
@@ -20,14 +20,16 @@ export default function Layout({ children }: LayoutProps) {
   }
 
   const navigation = [
-    { name: 'Dashboard', href: routes.dashboard },
-    { name: 'Projects', href: routes.projects },
-    { name: 'Customers', href: '/customers' },
-    { name: 'Invoices', href: '/invoices' },
-  ]
+    { name: 'Dashboard', href: routes.dashboard, enabled: featureFlags.dashboard },
+    { name: 'CRM', href: routes.crm, enabled: featureFlags.crm },
+    { name: 'Projects', href: routes.projects, enabled: featureFlags.projects },
+    { name: 'Customers', href: routes.customers, enabled: featureFlags.customers },
+    { name: 'Invoices', href: routes.invoices, enabled: featureFlags.invoices },
+    { name: 'Database', href: routes.database, enabled: featureFlags.database },
+  ].filter(item => item.enabled)
 
   if (user?.is_founder) {
-    navigation.push({ name: 'Admin', href: routes.admin })
+    navigation.push({ name: 'Admin', href: routes.admin, enabled: featureFlags.admin })
   }
 
   return (

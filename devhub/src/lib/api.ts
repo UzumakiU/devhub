@@ -2,19 +2,39 @@ class ApiClient {
   private baseUrl = 'http://localhost:8005';
   
   private getAuthHeaders() {
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      return {};
+    }
     const token = localStorage.getItem('auth_token');
     return token ? { 'Authorization': `Bearer ${token}` } : {};
   }
 
   async request(endpoint: string, options: RequestInit = {}) {
     const authHeaders = this.getAuthHeaders();
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const url = `${this.baseUrl}${endpoint}`;
+    
+    console.log('API Request:', { 
+      url, 
+      method: options.method || 'GET',
+      hasAuthHeader: !!authHeaders.Authorization,
+      headers: authHeaders
+    });
+
+    const response = await fetch(url, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
         ...authHeaders,
         ...options.headers,
       } as HeadersInit,
+    });
+
+    console.log('API Response:', { 
+      url, 
+      status: response.status, 
+      statusText: response.statusText,
+      ok: response.ok 
     });
 
     if (!response.ok) {
@@ -84,6 +104,43 @@ class ApiClient {
   // Database schema
   async getDatabaseSchema() {
     return this.request('/api/database/schema');
+  }
+
+  // Database management methods
+  async getDatabaseOverview() {
+    return this.request('/api/database/overview');
+  }
+
+  async validateDatabase() {
+    return this.request('/api/database/validate', { method: 'POST' });
+  }
+
+  async validateDatabaseSilent() {
+    return this.request('/api/database/validate');
+  }
+
+  async repairDatabase() {
+    return this.request('/api/database/repair', { method: 'POST' });
+  }
+
+  // New database monitoring methods
+  async getDatabaseHealth() {
+    return this.request('/api/database/health');
+  }
+
+  async getMonitoringStatus() {
+    return this.request('/api/database/monitoring/status');
+  }
+
+  async getDatabaseRelationships() {
+    return this.request('/api/database/relationships');
+  }
+
+  async createMonitoringAlert(alertData: any) {
+    return this.request('/api/database/monitoring/alert', {
+      method: 'POST',
+      body: JSON.stringify(alertData),
+    });
   }
 
   // Auth methods

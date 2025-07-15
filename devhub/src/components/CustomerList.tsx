@@ -24,13 +24,15 @@ interface CustomerListProps {
   showCreateButton?: boolean
   refresh?: number
   onEdit?: (customer: Customer) => void
+  onViewInteractions?: (customerId: string) => void
 }
 
 export default function CustomerList({ 
   limit, 
   showCreateButton = true, 
   refresh, 
-  onEdit 
+  onEdit,
+  onViewInteractions
 }: CustomerListProps) {
   const [customers, setCustomers] = useState<Customer[]>([])
   const [loading, setLoading] = useState(true)
@@ -196,6 +198,14 @@ export default function CustomerList({
                       className="text-blue-600 hover:text-blue-800 text-sm font-medium"
                     >
                       Edit
+                    </button>
+                  )}
+                  {onViewInteractions && (
+                    <button
+                      onClick={() => onViewInteractions(customer.system_id)}
+                      className="text-purple-600 hover:text-purple-800 text-sm font-medium"
+                    >
+                      Interactions
                     </button>
                   )}
                   <button

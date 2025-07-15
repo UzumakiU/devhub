@@ -1,8 +1,27 @@
-# DevHub ID System Documentation
+# DevHub Multi-Tenant SaaS ID System Documentation
 
 ## Overview
 
-DevHub uses a dual-ID system that combines simplicity with special roles:
+DevHub is a multi-tenant SaaS platform with a hierarchical ID system that provides clear separation between platform control and tenant business management.
+
+## Architecture Clarification
+
+### **Platform Level**
+
+- **Platform Founder (USR-000)**: DevHub Enterprise owner who controls the entire platform
+- **Platform Control**: Full access to all tenant businesses and platform administration
+
+### **Tenant Level**
+
+- **Tenant Businesses**: Client businesses using the platform (TNT-000, TNT-001, etc.)
+- **Business Owners**: Complete control within their specific tenant business
+- **Business Employees**: Role-based permissions within their tenant business
+- **Data Isolation**: Complete separation between different tenant businesses
+
+### **CRM Level**
+
+- **Customers**: External clients that tenant businesses serve (not platform users)
+- **Leads**: Potential customers in the sales pipeline
 
 ## ID Structure
 
@@ -11,71 +30,131 @@ DevHub uses a dual-ID system that combines simplicity with special roles:
 - **Format**: `PREFIX-000`, `PREFIX-001`, `PREFIX-002`, etc.
 - **Purpose**: Internal database tracking, relationships, sequential numbering
 - **Examples**:
-  - Users: `USR-000`, `USR-001`, `USR-002`
-  - Projects: `PRJ-000`, `PRJ-001`, `PRJ-002`
-  - Customers: `CUS-000`, `CUS-001`, `CUS-002`
-  - Invoices: `INV-000`, `INV-001`, `INV-002`
+  - **Platform**:
+    - Platform Founder: `USR-000` (special case)
+  - **Tenants**: `TNT-000`, `TNT-001`, `TNT-002`
+  - **Users**: `USR-001`, `USR-002`, `USR-003`
+  - **CRM**:
+    - Customers: `CUS-000`, `CUS-001`, `CUS-002`
+    - Leads: `LED-000`, `LED-001`, `LED-002`
+  - **Business Operations**:
+    - Projects: `PRJ-000`, `PRJ-001`, `PRJ-002`
+    - Invoices: `INV-000`, `INV-001`, `INV-002`
 
 ### Display IDs (User-Facing)
 
-- **Format**: Usually same as System ID, except for special roles
+- **Format**: Role-based display names for clarity
 - **Purpose**: What users see in the interface
 - **Examples**:
-  - Founder: `FOUNDER` (special display, but `USR-000` in database)
+  - Platform Founder: `FOUNDER` (system: `USR-000`)
+  - Business Owner: `BUSINESS_OWNER` (system: `USR-XXX`)
   - Regular users: `USR-001`, `USR-002`, etc.
 
-## Founder Account
+## User Roles & Permissions
 
-- **System ID**: `USR-000` (maintains sequential system)
-- **Display ID**: `FOUNDER` (special status)
-- **Auth Token**: Contains `is_founder: true` flag
-- **Future Multi-Tenant**: Other tenants get their own founder with different system ID
+### **Platform Level**
 
-## ID Generation Process
+- **FOUNDER**:
+  - Controls entire platform
+  - Access to all tenant businesses
+  - Platform administration
+  - No tenant_id (platform-wide access)
 
-1. **New User Created**:
-   - System generates: `USR-001`
-   - Display ID: `USR-001` (same, unless special role)
-   - Database stores both
+### **Tenant Level**
 
-2. **Founder Login**:
-   - Database ID: `USR-000`
-   - Display ID: `FOUNDER`
-   - JWT contains founder flag
+- **BUSINESS_OWNER**:
+  - Complete control within their tenant business
+  - All modules and features (based on subscription)
+  - User management within their business
+  - Billing and subscription management
 
-3. **Project Assignment**:
-   - Project: `PRJ-001`
-   - Owner: `USR-000` (founder's system ID)
-   - UI shows: "Owner: FOUNDER"
+- **MANAGER**:
+  - Department or team leadership
+  - Limited administrative permissions
+  - Can manage assigned employees
 
-## Benefits
+- **EMPLOYEE**:
+  - Role-based access to specific modules
+  - Department-specific permissions
+  - No administrative capabilities
 
-1. **Simple**: Easy to remember and reference
-2. **Professional**: Clean IDs in reports and invoices
-3. **Secure**: Internal IDs don't expose business volume
-4. **Flexible**: Special roles can have custom display names
-5. **Future-Proof**: Ready for multi-tenant expansion
+## Data Isolation
+
+### **Tenant Separation**
+
+Each tenant business has completely isolated data:
+
+```sql
+-- All tenant data is filtered by tenant_id
+SELECT * FROM customers WHERE tenant_id = 'TNT-001';
+SELECT * FROM projects WHERE tenant_id = 'TNT-001';
+SELECT * FROM users WHERE tenant_id = 'TNT-001';
+```
+
+### **Platform vs Tenant Users**
+
+```sql
+-- Platform Founder (no tenant)
+SELECT * FROM users WHERE is_founder = true AND tenant_id IS NULL;
+
+-- Tenant Business Users
+SELECT * FROM users WHERE tenant_id = 'TNT-001';
+```
 
 ## Examples in Practice
 
-### Invoice Display
+### **Multi-Tenant Setup**
+
+```
+Platform Founder (USR-000, FOUNDER)
+├── Tenant: ACME Corp (TNT-000)
+│   ├── Business Owner (USR-001, BUSINESS_OWNER)
+│   ├── Sales Manager (USR-002, MANAGER, dept: sales)
+│   ├── Developer (USR-003, EMPLOYEE, dept: development)
+│   ├── Customers: CUS-000, CUS-001, CUS-002
+│   └── Projects: PRJ-000, PRJ-001
+├── Tenant: TechFlow Solutions (TNT-001)
+│   ├── Business Owner (USR-004, BUSINESS_OWNER)
+│   ├── Marketing Lead (USR-005, MANAGER, dept: marketing)
+│   ├── Customers: CUS-003, CUS-004, CUS-005
+│   └── Projects: PRJ-002, PRJ-003
+```
+
+### **Invoice Display with Tenant Context**
 
 ```
 Invoice: INV-001
-Customer: CUS-001 (ACME Corp)
-Created by: FOUNDER
+Tenant: ACME Corp (TNT-000)
+Customer: CUS-001 (ABC Landscaping)
+Created by: John Smith (BUSINESS_OWNER)
 Project: PRJ-001 (Website Redesign)
 ```
 
-### Database Relations
+### **Database Relations with Tenant Isolation**
 
 ```sql
-SELECT i.id, i.customer_id, u.display_id as created_by
-FROM invoices i
-JOIN users u ON i.created_by = u.id
-WHERE i.id = 'INV-001';
-
--- Returns: INV-001, CUS-001, FOUNDER
+-- Get all customers for a specific tenant
+SELECT c.name, c.company, u.full_name as owner_name
+FROM customers c
+JOIN tenants t ON c.tenant_id = t.system_id
+JOIN users u ON t.system_id = u.tenant_id AND u.user_role = 'BUSINESS_OWNER'
+WHERE t.system_id = 'TNT-001';
 ```
 
-This system gives you the simplicity you want while maintaining professional appearance and future scalability.
+## Benefits
+
+1. **Multi-Tenant SaaS**: Complete data isolation between business clients
+2. **Role-Based Access**: Granular permissions within each tenant business
+3. **Platform Control**: Founder maintains oversight of entire platform
+4. **Professional**: Clean, sequential IDs for business documents
+5. **Scalable**: Ready for unlimited tenant businesses
+6. **Secure**: No cross-tenant data access possible
+
+## Migration Strategy
+
+The system maintains backwards compatibility while adding multi-tenant architecture:
+
+1. **Existing Data**: Current customers become part of a default tenant
+2. **New Tenants**: Created with proper isolation from day one
+3. **Founder Account**: Remains USR-000 with platform-wide access
+4. **ID Sequences**: Continue from current numbers

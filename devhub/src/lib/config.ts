@@ -4,6 +4,25 @@ export const config = {
   apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8005',
 };
 
+// Feature flags - easily toggle modules on/off
+export const featureFlags = {
+  // Core modules (always enabled)
+  crm: true,
+  dashboard: true,
+  admin: true,
+  database: true,
+  
+  // Temporarily disabled modules (focusing on CRM first)
+  projects: false,
+  customers: false,
+  invoices: false,
+  
+  // Future modules
+  reports: false,
+  analytics: false,
+  integrations: false,
+};
+
 export const routes = {
   home: '/',
   login: '/auth/login',
@@ -13,4 +32,6 @@ export const routes = {
   customers: '/customers',
   invoices: '/invoices',
   admin: '/admin',
+  crm: '/crm',
+  database: '/database',
 };

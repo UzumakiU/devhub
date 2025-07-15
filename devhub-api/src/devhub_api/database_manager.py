@@ -7,7 +7,10 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text, inspect, func
 from typing import Dict, List, Any, Optional
 import re
-from .models import User, Project, Customer, Invoice, ProjectAssignment, ProjectCustomer
+from .models import (
+    User, Project, Customer, Invoice, ProjectAssignment, ProjectCustomer,
+    Tenant, Lead, CustomerInteraction, LeadInteraction, CustomerNote, PasswordVault
+)
 from .id_system import IDGenerator
 
 
@@ -265,6 +268,84 @@ class DatabaseManager:
                     }
                 }
             
+            elif table_name == "leads":
+                from .models import Lead
+                system_id = IDGenerator.generate_id("lead", db)
+                
+                lead = Lead(
+                    system_id=system_id,
+                    name=data.get("name"),
+                    email=data.get("email"),
+                    phone=data.get("phone"),
+                    company=data.get("company"),
+                    job_title=data.get("job_title"),
+                    source=data.get("source", "unknown"),
+                    lead_score=data.get("lead_score", 0),
+                    qualification_status=data.get("qualification_status", "new"),
+                    stage=data.get("stage", "prospect"),
+                    estimated_value=data.get("estimated_value"),
+                    probability=data.get("probability", 10),
+                    assigned_to=data.get("assigned_to"),
+                    address_line1=data.get("address_line1"),
+                    address_line2=data.get("address_line2"),
+                    city=data.get("city"),
+                    state=data.get("state"),
+                    postal_code=data.get("postal_code"),
+                    country=data.get("country", "US"),
+                    is_active=data.get("is_active", True)
+                )
+                
+                db.add(lead)
+                db.commit()
+                db.refresh(lead)
+                
+                return {
+                    "success": True,
+                    "record": {
+                        "system_id": lead.system_id,
+                        "name": lead.name,
+                        "email": lead.email,
+                        "company": lead.company,
+                        "stage": lead.stage,
+                        "qualification_status": lead.qualification_status,
+                        "lead_score": lead.lead_score
+                    }
+                }
+            
+            elif table_name == "customer_interactions":
+                from .models import CustomerInteraction
+                system_id = IDGenerator.generate_id("customer_interaction", db)
+                
+                interaction = CustomerInteraction(
+                    system_id=system_id,
+                    customer_id=data.get("customer_id"),
+                    user_id=data.get("user_id"),
+                    interaction_type=data.get("interaction_type", "note"),
+                    subject=data.get("subject", ""),
+                    description=data.get("description", ""),
+                    outcome=data.get("outcome", ""),
+                    priority=data.get("priority", "medium"),
+                    status=data.get("status", "completed"),
+                    is_billable=data.get("is_billable", False),
+                    billable_hours=data.get("billable_hours"),
+                    completed_at=data.get("completed_at")
+                )
+                
+                db.add(interaction)
+                db.commit()
+                db.refresh(interaction)
+                
+                return {
+                    "success": True,
+                    "record": {
+                        "system_id": interaction.system_id,
+                        "customer_id": interaction.customer_id,
+                        "interaction_type": interaction.interaction_type,
+                        "subject": interaction.subject,
+                        "status": interaction.status
+                    }
+                }
+            
             else:
                 raise ValueError(f"Unsupported table: {table_name}")
                 
@@ -457,6 +538,168 @@ class DatabaseManager:
                             "created_at": invoice.created_at.isoformat() if invoice.created_at else None
                         }
                         for invoice in invoices
+                    ]
+                }
+            
+            elif table_name == "tenants":
+                tenants = db.query(Tenant).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "system_id": tenant.system_id,
+                            "business_name": tenant.business_name,
+                            "business_email": tenant.business_email,
+                            "business_phone": tenant.business_phone,
+                            "subscription_plan": tenant.subscription_plan,
+                            "is_active": tenant.is_active,
+                            "max_users": tenant.max_users,
+                            "city": tenant.city,
+                            "state": tenant.state,
+                            "country": tenant.country,
+                            "created_at": tenant.created_at.isoformat() if tenant.created_at else None
+                        }
+                        for tenant in tenants
+                    ]
+                }
+            
+            elif table_name == "leads":
+                leads = db.query(Lead).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "system_id": lead.system_id,
+                            "name": lead.name,
+                            "email": lead.email,
+                            "phone": lead.phone,
+                            "company": lead.company,
+                            "job_title": lead.job_title,
+                            "source": lead.source,
+                            "lead_score": lead.lead_score,
+                            "qualification_status": lead.qualification_status,
+                            "stage": lead.stage,
+                            "estimated_value": float(lead.estimated_value) if lead.estimated_value else None,
+                            "probability": lead.probability,
+                            "assigned_to": lead.assigned_to,
+                            "is_active": lead.is_active,
+                            "created_at": lead.created_at.isoformat() if lead.created_at else None
+                        }
+                        for lead in leads
+                    ]
+                }
+            
+            elif table_name == "customer_interactions":
+                interactions = db.query(CustomerInteraction).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "system_id": interaction.system_id,
+                            "customer_id": interaction.customer_id,
+                            "user_id": interaction.user_id,
+                            "interaction_type": interaction.interaction_type,
+                            "subject": interaction.subject,
+                            "description": interaction.description,
+                            "outcome": interaction.outcome,
+                            "priority": interaction.priority,
+                            "status": interaction.status,
+                            "is_billable": interaction.is_billable,
+                            "billable_hours": float(interaction.billable_hours) if interaction.billable_hours else None,
+                            "created_at": interaction.created_at.isoformat() if interaction.created_at else None,
+                            "completed_at": interaction.completed_at.isoformat() if interaction.completed_at else None
+                        }
+                        for interaction in interactions
+                    ]
+                }
+            
+            elif table_name == "lead_interactions":
+                interactions = db.query(LeadInteraction).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "system_id": interaction.system_id,
+                            "lead_id": interaction.lead_id,
+                            "user_id": interaction.user_id,
+                            "interaction_type": interaction.interaction_type,
+                            "subject": interaction.subject,
+                            "description": interaction.description,
+                            "outcome": interaction.outcome,
+                            "priority": interaction.priority,
+                            "status": interaction.status,
+                            "created_at": interaction.created_at.isoformat() if interaction.created_at else None,
+                            "completed_at": interaction.completed_at.isoformat() if interaction.completed_at else None
+                        }
+                        for interaction in interactions
+                    ]
+                }
+            
+            elif table_name == "customer_notes":
+                notes = db.query(CustomerNote).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "system_id": note.system_id,
+                            "customer_id": note.customer_id,
+                            "user_id": note.user_id,
+                            "note_type": note.note_type,
+                            "title": note.title,
+                            "content": note.content,
+                            "is_private": note.is_private,
+                            "priority": note.priority,
+                            "created_at": note.created_at.isoformat() if note.created_at else None
+                        }
+                        for note in notes
+                    ]
+                }
+            
+            elif table_name == "project_assignments":
+                project_assignments = db.query(ProjectAssignment).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "id": assignment.id,
+                            "project_id": assignment.project_id,
+                            "user_id": assignment.user_id,
+                            "role": assignment.role,
+                            "assigned_at": assignment.assigned_at.isoformat() if assignment.assigned_at else None
+                        }
+                        for assignment in project_assignments
+                    ]
+                }
+            
+            elif table_name == "project_customers":
+                project_customers = db.query(ProjectCustomer).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "id": pc.id,
+                            "project_id": pc.project_id,
+                            "customer_id": pc.customer_id,
+                            "assigned_at": pc.assigned_at.isoformat() if pc.assigned_at else None
+                        }
+                        for pc in project_customers
+                    ]
+                }
+            
+            elif table_name == "password_vault":
+                vault_entries = db.query(PasswordVault).limit(limit).all()
+                return {
+                    "success": True,
+                    "data": [
+                        {
+                            "id": entry.id,
+                            "user_system_id": entry.user_system_id,
+                            "vault_access_code": entry.vault_access_code,
+                            "created_by": entry.created_by,
+                            "created_at": entry.created_at.isoformat() if entry.created_at else None,
+                            "updated_at": entry.updated_at.isoformat() if entry.updated_at else None
+                        }
+                        for entry in vault_entries
                     ]
                 }
             
