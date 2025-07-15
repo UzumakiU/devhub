@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Layout from '@/components/Layout'
+import useAuth from '@/hooks/useAuth'
 import DatabaseStats from '@/components/database/DatabaseStats'
 import DatabaseTableBrowser from '@/components/database/DatabaseTableBrowser'
 import DatabaseTableDetails from '@/components/database/DatabaseTableDetails'
@@ -9,6 +10,7 @@ import DatabaseQueryEditor from '@/components/database/DatabaseQueryEditor'
 import type { QueryResult } from '@/types/database'
 
 export default function DatabasePage() {
+  const { user, logout } = useAuth()
   const [selectedTable, setSelectedTable] = useState<string | null>(null)
   const [queryResult, setQueryResult] = useState<QueryResult | null>(null)
   const [activeTab, setActiveTab] = useState<'overview' | 'tables' | 'query'>('overview')

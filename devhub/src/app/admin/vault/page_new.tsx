@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import useAuth from '@/hooks/useAuth'
 import Layout from '@/components/Layout'
 import VaultAccess from '@/components/vault/VaultAccess'
@@ -12,7 +13,7 @@ import Alert from '@/components/common/Alert'
 import type { VaultEntry, PasswordDetails } from '@/types/vault'
 
 export default function PasswordVaultPage() {
-  const { token, isLoading, isAuthenticated, isFounder } = useAuth()
+  const { user, token, isLoading, logout, isAuthenticated, isFounder } = useAuth()
   const [vaultEntries, setVaultEntries] = useState<VaultEntry[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -26,8 +27,16 @@ export default function PasswordVaultPage() {
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [selectedUserId, setSelectedUserId] = useState('')
   const [passwordDetails, setPasswordDetails] = useState<PasswordDetails | null>(null)
+  
+  const router = useRouter()
 
-  const fetchVaultEntries = useCallback(async () => {
+  useEffect(() => {
+    if (!isLoading && isAuthenticated() && isFounder() && isVaultUnlocked) {
+      fetchVaultEntries()
+    }
+  }, [isLoading, isAuthenticated, isFounder, isVaultUnlocked])
+
+  const fetchVaultEntries = async () => {
     try {
       const response = await fetch('http://localhost:8005/api/admin/vault/list', {
         headers: {
@@ -46,13 +55,7 @@ export default function PasswordVaultPage() {
     } finally {
       setLoading(false)
     }
-  }, [token])
-
-  useEffect(() => {
-    if (!isLoading && isAuthenticated() && isFounder() && isVaultUnlocked) {
-      fetchVaultEntries()
-    }
-  }, [isLoading, isAuthenticated, isFounder, isVaultUnlocked, fetchVaultEntries])
+  }
 
   const handleViewPassword = async (accessCode: string) => {
     if (!selectedUserId || !accessCode) return
