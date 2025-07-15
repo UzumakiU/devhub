@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "description": "Business Management Platform - Frontend",
-  "author": "uzumakiu",
+  "author": "UzumakiU",
   "repository": {
     "type": "git",
-    "url": "https://github.com/uzumakiu/devhub.git"
+    "url": "https://github.com/UzumakiU/devhub.git"
   },
-  "homepage": "https://github.com/uzumakiu/devhub",
+  "homepage": "https://github.com/UzumakiU/devhub",
   "scripts": {
     "dev": "next dev --turbopack -p 3005",
     "build": "next build",

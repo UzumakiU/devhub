@@ -2,8 +2,8 @@
 
 A modern, single-tenant business management hub built with Next.js and FastAPI.
 
-**Author:** uzumakiu  
-**Repository:** [https://github.com/uzumakiu/devhub](https://github.com/uzumakiu/devhub)
+**Author:** UzumakiU  
+**Repository:** [https://github.com/UzumakiU/devhub](https://github.com/UzumakiU/devhub)
 
 ## Quick Start
 

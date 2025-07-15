@@ -3,7 +3,7 @@ name = "devhub-api"
 version = "0.1.0"
 description = "Business Management Platform - Backend API"
 authors = [
-    {name = "uzumakiu", email = "uzumakiu@example.com"}
+    {name = "UzumakiU", email = "UzumakiU@example.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
