@@ -2,8 +2,8 @@
 
 A modern, single-tenant business management hub built with Next.js and FastAPI.
 
-**Author**: jasonmorgan75  
-**Repository**: Coming soon - will be linked to GitHub once published
+**Author:** uzumakiu  
+**Repository:** [https://github.com/uzumakiu/devhub](https://github.com/uzumakiu/devhub)
 
 ## Quick Start
 
@@ -25,9 +25,9 @@ poetry run uvicorn src.devhub_api.main:app --host 0.0.0.0 --port 8005 --reload
 
 ## Access
 
-- **Frontend**: <http://localhost:3005>
-- **Backend API**: <http://localhost:8005>
-- **API Docs**: <http://localhost:8005/docs>
+- **Frontend**: [http://localhost:3005](http://localhost:3005)
+- **Backend API**: [http://localhost:8005](http://localhost:8005)
+- **API Docs**: [http://localhost:8005/docs](http://localhost:8005/docs)
 
 ## Architecture
 
