@@ -38,8 +38,8 @@ class User(BaseModel, TimestampMixin):
     
     # Relationships
     tenant = relationship("Tenant", back_populates="users")
-    projects_owned = relationship("Project", foreign_keys="Project.owner_id", back_populates="owner")
-    project_assignments = relationship("ProjectAssignment", back_populates="user")
+    owned_projects = relationship("Project", foreign_keys="Project.owner_id")  # Updated to match actual column
+    # created_invoices = relationship("Invoice", back_populates="creator")  # Temporarily disabled - no foreign key
     customer_interactions = relationship("CustomerInteraction", back_populates="user")
     lead_interactions = relationship("LeadInteraction", back_populates="user")
     customer_notes = relationship("CustomerNote", back_populates="user")

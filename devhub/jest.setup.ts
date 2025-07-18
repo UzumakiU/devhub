@@ -57,7 +57,7 @@ jest.mock('next/navigation', () => ({
 
 // Mock Zustand
 jest.mock('zustand', () => ({
-  create: jest.fn(() => (set, get) => ({})),
+  create: jest.fn(() => (set: any, get: any) => ({})),
 }))
 
 // Global test utilities

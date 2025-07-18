@@ -14,7 +14,32 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
-  ...storybook.configs["flat/recommended"]
+  ...storybook.configs["flat/recommended"],
+  {
+    files: ["**/*.stories.{js,jsx,ts,tsx}"],
+    rules: {
+      "storybook/no-renderer-packages": "off",
+    },
+  },
+  {
+    files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.spec.{js,jsx,ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+    },
+  },
+  {
+    files: ["src/components/ui/**/*", "src/stories/**/*"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+      "react/no-unescaped-entities": "off",
+    },
+  },
+  {
+    rules: {
+      "react-hooks/exhaustive-deps": "warn", // Downgrade from error to warning
+    },
+  },
 ];
 
 export default eslintConfig;

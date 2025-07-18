@@ -40,7 +40,7 @@ export default function UserManagementPage() {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8005/api/admin/users', {
+      const response = await fetch('http://localhost:8005/api/v1/admin/users', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export default function UserManagementPage() {
 
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:8005/api/admin/reset-password', {
+      const response = await fetch('http://localhost:8005/api/v1/admin/reset-password', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -106,7 +106,7 @@ export default function UserManagementPage() {
   const handleCreateTempPassword = async (user: User) => {
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:8005/api/admin/create-temp-password', {
+      const response = await fetch('http://localhost:8005/api/v1/admin/create-temp-password', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

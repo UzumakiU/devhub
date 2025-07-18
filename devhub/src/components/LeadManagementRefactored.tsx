@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import useAuth from '@/hooks/useAuth'
 import { LeadManagementProps, LeadFormData } from './leads/types'
 import { LeadService } from './leads/LeadService'
@@ -19,7 +19,10 @@ export default function LeadManagement({ onBack }: LeadManagementProps) {
   const [formLoading, setFormLoading] = useState(false)
   const [convertingLeadId, setConvertingLeadId] = useState<string>()
 
-  const leadService = token ? new LeadService(token) : null
+  const leadService = useMemo(() => 
+    token ? new LeadService(token) : null, 
+    [token]
+  )
 
   const fetchLeads = useCallback(async () => {
     if (!leadService) return

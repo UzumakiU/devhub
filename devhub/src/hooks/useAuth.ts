@@ -50,7 +50,7 @@ const useAuth = () => {
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }))
       
-      const response = await fetch('http://localhost:8005/api/auth/login', {
+      const response = await fetch('http://localhost:8005/api/v1/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const useAuth = () => {
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }))
       
-      const response = await fetch('http://localhost:8005/api/auth/register', {
+      const response = await fetch('http://localhost:8005/api/v1/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,7 +132,7 @@ const useAuth = () => {
     try {
       setAuthState(prev => ({ ...prev, isLoading: true }))
       
-      const response = await fetch('http://localhost:8005/api/auth/create-founder', {
+      const response = await fetch('http://localhost:8005/api/v1/auth/create-founder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

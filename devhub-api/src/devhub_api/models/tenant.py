@@ -36,3 +36,4 @@ class Tenant(BaseModel, TimestampMixin):
     users = relationship("User", back_populates="tenant")
     customers = relationship("Customer", back_populates="tenant")
     projects = relationship("Project", back_populates="tenant")
+    # invoices = relationship("Invoice", back_populates="tenant")  # Disabled - no tenant_id in invoices

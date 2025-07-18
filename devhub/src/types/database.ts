@@ -2,23 +2,25 @@
 
 export interface TableData {
   table_name: string
-  columns: Array<{
+  columns?: Array<{
     column_name: string
     data_type: string
     is_nullable: string
-    column_default: string
+    column_default: string | null
   }>
-  row_count: number
-  relationships: Array<{
+  total_rows?: number
+  displayed_rows?: number
+  data?: Array<Record<string, unknown>>
+  relationships?: Array<{
     foreign_table_name: string
     foreign_column_name: string
   }>
 }
 
 export interface DatabaseStats {
-  total_tables: number
-  total_records: number
-  table_stats: Array<{
+  total_tables?: number
+  total_records?: number
+  table_stats?: Array<{
     table_name: string
     record_count: number
   }>
@@ -55,8 +57,8 @@ export interface TableHealth {
 }
 
 export interface QueryResult {
-  columns: string[]
-  rows: Record<string, unknown>[]
-  execution_time: number
-  row_count: number
+  columns?: string[]
+  rows?: Record<string, unknown>[]
+  execution_time?: number
+  row_count?: number
 }

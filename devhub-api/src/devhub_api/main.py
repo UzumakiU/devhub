@@ -5,11 +5,12 @@ Clean, focused FastAPI application setup
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 import logging
 
 # Import from our organized structure
 from .core import settings, get_db
-from .api.v1 import auth, crm, admin, database
+from .api.v1 import auth, crm, admin, database, projects, invoices
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -38,6 +39,8 @@ def create_app() -> FastAPI:
     app.include_router(crm.router, prefix="/api/v1/crm", tags=["crm"])
     app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
     app.include_router(database.router, prefix="/api/v1/database", tags=["database"])
+    app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
+    app.include_router(invoices.router, prefix="/api/v1/invoices", tags=["invoices"])
 
     @app.get("/")
     async def root():
@@ -54,7 +57,7 @@ def create_app() -> FastAPI:
         """Health check with database connectivity"""
         try:
             # Test database connection
-            db.execute("SELECT 1")
+            db.execute(text("SELECT 1"))
             db_status = "connected"
         except Exception as e:
             logger.error(f"Database connection failed: {e}")

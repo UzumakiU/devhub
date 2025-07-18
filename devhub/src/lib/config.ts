@@ -14,7 +14,6 @@ export const featureFlags = {
   
   // Temporarily disabled modules (focusing on CRM first)
   projects: false,
-  customers: false,
   invoices: false,
   
   // Future modules
@@ -29,7 +28,6 @@ export const routes = {
   register: '/auth/register',
   dashboard: '/dashboard',
   projects: '/projects',
-  customers: '/customers',
   invoices: '/invoices',
   admin: '/admin',
   crm: '/crm',

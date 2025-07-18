@@ -2,7 +2,6 @@
 Core configuration management
 """
 import os
-from typing import Optional
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,8 +29,8 @@ class Settings:
     
     # Feature Flags
     FEATURE_CRM: bool = True
-    FEATURE_PROJECTS: bool = False
-    FEATURE_INVOICES: bool = False
+    FEATURE_PROJECTS: bool = True
+    FEATURE_INVOICES: bool = True
 
 # Global settings instance
 settings = Settings()

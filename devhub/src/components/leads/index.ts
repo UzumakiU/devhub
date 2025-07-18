@@ -1,4 +1,4 @@
-export { default as LeadManagement } from '../LeadManagement'
+export { default as LeadManagement } from '../LeadManagementRefactored'
 export { default as LeadForm } from './LeadForm'
 export { default as LeadCard } from './LeadCard'
 export { default as LeadList } from './LeadList'

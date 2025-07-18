@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import Layout from '@/components/Layout'
-import CRMDashboard from '@/components/CRMDashboard'
-import LeadManagement from '@/components/LeadManagement'
+import CRMDashboardRefactored from '@/components/CRMDashboardRefactored'
+import LeadManagementRefactored from '@/components/LeadManagementRefactored'
 import CustomerInteractions from '@/components/CustomerInteractions'
 import CustomerList from '@/components/CustomerList'
-import AllInteractions from '@/components/AllInteractions'
+import { AllInteractionsRefactored } from '@/components/interactions/all'
 
 type CRMView = 'dashboard' | 'leads' | 'customers' | 'interactions'
 
@@ -48,7 +48,7 @@ export default function CRMPage() {
     switch (currentView) {
       case 'dashboard':
         return (
-          <CRMDashboard
+          <CRMDashboardRefactored
             onViewCustomers={handleViewCustomers}
             onViewLeads={handleViewLeads}
             onViewInteractions={handleViewInteractions}
@@ -57,7 +57,7 @@ export default function CRMPage() {
       
       case 'leads':
         return (
-          <LeadManagement
+          <LeadManagementRefactored
             onBack={handleBackToDashboard}
           />
         )
@@ -87,7 +87,7 @@ export default function CRMPage() {
             onBack={() => setCurrentView('customers')}
           />
         ) : (
-          <AllInteractions
+          <AllInteractionsRefactored
             onBack={() => setCurrentView('dashboard')}
             onViewCustomer={handleViewSpecificCustomer}
           />
@@ -95,7 +95,7 @@ export default function CRMPage() {
       
       default:
         return (
-          <CRMDashboard
+          <CRMDashboardRefactored
             onViewCustomers={handleViewCustomers}
             onViewLeads={handleViewLeads}
             onViewInteractions={handleViewInteractions}

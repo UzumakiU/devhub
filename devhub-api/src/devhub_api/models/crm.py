@@ -1,7 +1,7 @@
 """
 CRM models - Customer, Lead, and related interaction models
 """
-from sqlalchemy import Column, String, Boolean, Text, ForeignKey, Integer, Enum as SQLEnum
+from sqlalchemy import Column, String, Boolean, Text, ForeignKey, Integer, Date
 from sqlalchemy.orm import relationship
 from .base import BaseModel, TimestampMixin
 import enum
@@ -32,10 +32,13 @@ class Customer(BaseModel, TimestampMixin):
     tenant_id = Column(String, ForeignKey("tenants.system_id"), nullable=False)
     
     # Customer Information
-    company_name = Column(String, index=True)
-    contact_name = Column(String)
+    company = Column(String, index=True)  # Matches actual DB column name
+    name = Column(String)  # Matches actual DB column name  
     email = Column(String)
     phone = Column(String)
+    
+    # Status flag
+    is_active = Column(Boolean, default=True)  # Matches actual DB column
     
     # Address
     address_line1 = Column(String)
@@ -45,19 +48,12 @@ class Customer(BaseModel, TimestampMixin):
     postal_code = Column(String)
     country = Column(String, default="US")
     
-    # Business Details
-    industry = Column(String)
-    company_size = Column(String)  # "1-10", "11-50", "51-200", etc.
-    website = Column(String)
-    notes = Column(Text)
-    
-    # Status
-    status = Column(SQLEnum(CustomerStatus), default=CustomerStatus.PROSPECT)
-    
     # Relationships
     tenant = relationship("Tenant", back_populates="customers")
     interactions = relationship("CustomerInteraction", back_populates="customer")
     notes_list = relationship("CustomerNote", back_populates="customer")
+    # projects = relationship("Project", back_populates="customer")  # Disabled - no customer_id in projects table
+    invoices = relationship("Invoice", back_populates="customer")
 
 class Lead(BaseModel, TimestampMixin):
     """Lead management for CRM"""
@@ -66,24 +62,38 @@ class Lead(BaseModel, TimestampMixin):
     system_id = Column(String, unique=True, index=True)  # LED-000, LED-001, etc.
     tenant_id = Column(String, ForeignKey("tenants.system_id"), nullable=False)
     
-    # Lead Information
-    company_name = Column(String, index=True)
-    contact_name = Column(String)
+    # Lead Information (matches actual DB schema)
+    company = Column(String, index=True)  # Matches actual column name
+    name = Column(String)  # Matches actual column name
     email = Column(String)
     phone = Column(String)
+    job_title = Column(String)
+    
+    # Address fields
+    address_line1 = Column(String)
+    address_line2 = Column(String)
+    city = Column(String)
+    state = Column(String)
+    postal_code = Column(String)
+    country = Column(String, default="US")
     
     # Lead Details
     source = Column(String)  # website, referral, cold_call, etc.
-    status = Column(SQLEnum(LeadStatus), default=LeadStatus.NEW)
-    value = Column(Integer, default=0)  # Estimated value in cents
+    stage = Column(String)  # Matches actual column name instead of status
+    estimated_value = Column(Integer, default=0)  # Matches actual column name
     probability = Column(Integer, default=0)  # 0-100 percentage
+    lead_score = Column(Integer, default=0)
+    qualification_status = Column(String)
+    
+    # Status and tracking
+    is_active = Column(Boolean, default=True)
+    expected_close_date = Column(Date)
+    last_contacted = Column(Date)
+    converted_to_customer = Column(Boolean, default=False)
+    converted_customer_id = Column(String)
     
     # Assignment
     assigned_to = Column(String, ForeignKey("users.system_id"), nullable=True)
-    
-    # Notes
-    description = Column(Text)
-    notes = Column(Text)
     
     # Relationships
     tenant = relationship("Tenant")

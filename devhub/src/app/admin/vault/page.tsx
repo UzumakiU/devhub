@@ -29,7 +29,7 @@ export default function PasswordVaultPage() {
 
   const fetchVaultEntries = useCallback(async () => {
     try {
-      const response = await fetch('http://localhost:8005/api/admin/vault/list', {
+      const response = await fetch('http://localhost:8005/api/v1/admin/vault/list', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -59,7 +59,7 @@ export default function PasswordVaultPage() {
 
     try {
       setLoading(true)
-      const response = await fetch(`http://localhost:8005/api/admin/vault/view-password/${selectedUserId}`, {
+      const response = await fetch(`http://localhost:8005/api/v1/admin/vault/view-password/${selectedUserId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -86,7 +86,7 @@ export default function PasswordVaultPage() {
   const handleSavePassword = async (userId: string, password: string, accessCode: string) => {
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:8005/api/admin/vault/save-password', {
+      const response = await fetch('http://localhost:8005/api/v1/admin/vault/save-password', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

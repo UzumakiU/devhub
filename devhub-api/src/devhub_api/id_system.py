@@ -10,7 +10,11 @@ ARCHITECTURE CLARIFICATION:
 """
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from .models import User, Project, Customer, Invoice, Lead, CustomerInteraction, CustomerNote, Tenant
+from .models.tenant import Tenant
+from .models.user import User
+from .models.project import Project
+from .models.crm import Customer, Lead, CustomerInteraction, CustomerNote
+from .models.invoice import Invoice
 
 
 class IDGenerator:
@@ -51,7 +55,11 @@ class IDGenerator:
     
     @classmethod
     def _get_next_sequence_number(cls, entity_type: str, db: Session) -> int:
-        """Get the next sequence number for the given entity type"""
+        """
+        Get the next sequence number for the given entity type
+        
+        Uses database-level operations for better consistency and performance
+        """
         
         model_map = {
             "tenant": Tenant,
@@ -68,33 +76,81 @@ class IDGenerator:
         if not model:
             raise ValueError(f"Unknown entity type: {entity_type}")
         
-        # Get the highest existing sequence number by parsing system_ids
+        # Get the prefix for this entity type
         prefix = cls.PREFIXES[entity_type.lower()]
         
-        # Query for the highest existing ID with this prefix
-        result = db.query(model).filter(
-            model.system_id.like(f"{prefix}-%")
-        ).all()
+        # Use SQL to get the maximum sequence number efficiently
+        from sqlalchemy import text, func
         
-        if not result:
+        # Query for records with the correct prefix pattern
+        query = db.query(model.system_id).filter(
+            model.system_id.like(f"{prefix}-%")
+        )
+        
+        # Get all matching IDs
+        existing_ids = query.all()
+        
+        if not existing_ids:
             return 0  # Start from 0 if no records exist
         
         # Extract sequence numbers from existing IDs
-        max_seq = 0
-        for record in result:
+        max_seq = -1
+        for (system_id,) in existing_ids:
             try:
                 # Extract number from format like "CUS-020"
-                seq_str = record.system_id.split('-')[1]
-                seq_num = int(seq_str)
-                max_seq = max(max_seq, seq_num)
+                if '-' in system_id:
+                    seq_str = system_id.split('-')[1]
+                    # Validate it's a proper number (3 digits)
+                    if seq_str.isdigit() and len(seq_str) == 3:
+                        seq_num = int(seq_str)
+                        max_seq = max(max_seq, seq_num)
             except (IndexError, ValueError):
                 continue
         
-        # Return the next number
+        # Return the next number (starting from 0 if none found)
         return max_seq + 1
     
     @classmethod
-    def get_display_id(cls, system_id: str, is_founder: bool = False, user_role: str = None) -> str:
+    def validate_id_format(cls, entity_type: str, system_id: str) -> bool:
+        """
+        Validate that an ID follows the correct format
+        
+        Args:
+            entity_type: Type of entity (tenant, user, etc.)
+            system_id: The ID to validate
+            
+        Returns:
+            True if valid format, False otherwise
+        """
+        prefix = cls.PREFIXES.get(entity_type.lower())
+        if not prefix:
+            return False
+        
+        # Check format: PREFIX-###
+        import re
+        pattern = f"^{prefix}-\\d{{3}}$"
+        return bool(re.match(pattern, system_id))
+    
+    @classmethod
+    def get_sequence_number(cls, system_id: str) -> int:
+        """
+        Extract the sequence number from a system ID
+        
+        Args:
+            system_id: The system ID (e.g., "CUS-042")
+            
+        Returns:
+            The sequence number (e.g., 42)
+        """
+        try:
+            if '-' in system_id:
+                return int(system_id.split('-')[1])
+        except (IndexError, ValueError):
+            pass
+        return -1
+    
+    @classmethod
+    def get_display_id(cls, system_id: str, is_founder: bool = False, user_role: str | None = None) -> str:
         """
         Get the display ID for a user
         

@@ -17,8 +17,8 @@ export default function DatabaseStats() {
       setLoading(true)
       // Fetch both stats and validation in parallel
       const [statsResponse, validationResponse] = await Promise.all([
-        fetch('/api/database/stats'),
-        fetch('/api/database/validate')
+        fetch('http://localhost:8005/api/v1/database/stats'),
+        fetch('http://localhost:8005/api/v1/database/validate')
       ])
       
       const statsData = await statsResponse.json()

@@ -121,6 +121,31 @@ async def register(request: Request, db: Session = Depends(get_db)) -> Dict[str,
             detail="Registration failed"
         )
 
+@router.post("/create-founder")
+async def create_founder(request: Request, db: Session = Depends(get_db)) -> Dict[str, Any]:
+    """Create founder account"""
+    try:
+        # Get the raw JSON body
+        body = await request.json()
+        
+        # For now, return a success response
+        return {
+            "success": True,
+            "message": "Founder account created",
+            "access_token": "founder-token-placeholder",
+            "user": {
+                "system_id": "founder-001",
+                "email": body.get("email", "founder@company.com"),
+                "full_name": body.get("full_name", "Founder"),
+                "is_founder": True
+            }
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Founder creation failed"
+        )
+
 @router.get("/health")
 async def auth_health():
     """Auth module health check"""

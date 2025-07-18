@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, act } from '@testing-library/react'
 import CRMDashboardRefactored from '../../CRMDashboardRefactored'
 
 // Mock the CRMService
@@ -56,7 +56,9 @@ describe('CRMDashboardRefactored', () => {
   })
 
   it('renders dashboard content after loading', async () => {
-    render(<CRMDashboardRefactored {...mockProps} />)
+    await act(async () => {
+      render(<CRMDashboardRefactored {...mockProps} />)
+    })
     
     // Wait for loading to complete and dashboard to render
     await waitFor(() => {
@@ -74,7 +76,9 @@ describe('CRMDashboardRefactored', () => {
   })
 
   it('renders all dashboard components after loading', async () => {
-    render(<CRMDashboardRefactored {...mockProps} />)
+    await act(async () => {
+      render(<CRMDashboardRefactored {...mockProps} />)
+    })
     
     // Wait for data to load
     await waitFor(() => {
@@ -89,7 +93,9 @@ describe('CRMDashboardRefactored', () => {
   })
 
   it('renders Quick Actions component', async () => {
-    render(<CRMDashboardRefactored {...mockProps} />)
+    await act(async () => {
+      render(<CRMDashboardRefactored {...mockProps} />)
+    })
     
     await waitFor(() => {
       expect(document.querySelector('.animate-pulse')).not.toBeInTheDocument()
@@ -100,12 +106,14 @@ describe('CRMDashboardRefactored', () => {
 
   it('handles error state gracefully', async () => {
     // Mock the service to throw an error
-    const { CRMService } = require('../CRMService')
-    CRMService.mockImplementation(() => ({
+    const mockCRMService = require('../CRMService')
+    mockCRMService.CRMService.mockImplementation(() => ({
       fetchAnalytics: jest.fn().mockRejectedValue(new Error('API Error'))
     }))
 
-    render(<CRMDashboardRefactored {...mockProps} />)
+    await act(async () => {
+      render(<CRMDashboardRefactored {...mockProps} />)
+    })
     
     // Should render error state eventually
     await waitFor(() => {
@@ -115,8 +123,8 @@ describe('CRMDashboardRefactored', () => {
 
   it('has proper responsive grid layout', async () => {
     // Ensure the mock is reset to successful state
-    const { CRMService } = require('../CRMService')
-    CRMService.mockImplementation(() => ({
+    const mockCRMService = require('../CRMService')
+    mockCRMService.CRMService.mockImplementation(() => ({
       fetchAnalytics: jest.fn().mockResolvedValue({
         customer_metrics: {
           total_customers: 150,
@@ -147,7 +155,9 @@ describe('CRMDashboardRefactored', () => {
       })
     }))
 
-    const { container } = render(<CRMDashboardRefactored {...mockProps} />)
+    const { container } = await act(async () => {
+      return render(<CRMDashboardRefactored {...mockProps} />)
+    })
     
     // Wait for content to load
     await waitFor(() => {

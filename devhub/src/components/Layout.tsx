@@ -23,7 +23,6 @@ export default function Layout({ children }: LayoutProps) {
     { name: 'Dashboard', href: routes.dashboard, enabled: featureFlags.dashboard },
     { name: 'CRM', href: routes.crm, enabled: featureFlags.crm },
     { name: 'Projects', href: routes.projects, enabled: featureFlags.projects },
-    { name: 'Customers', href: routes.customers, enabled: featureFlags.customers },
     { name: 'Invoices', href: routes.invoices, enabled: featureFlags.invoices },
     { name: 'Database', href: routes.database, enabled: featureFlags.database },
   ].filter(item => item.enabled)

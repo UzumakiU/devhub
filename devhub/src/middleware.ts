@@ -7,7 +7,6 @@ export function middleware(request: NextRequest) {
   // Define route to feature flag mapping
   const routeFeatureMap: Record<string, boolean> = {
     '/projects': featureFlags.projects,
-    '/customers': featureFlags.customers,
     '/invoices': featureFlags.invoices,
     '/crm': featureFlags.crm,
     '/dashboard': featureFlags.dashboard,

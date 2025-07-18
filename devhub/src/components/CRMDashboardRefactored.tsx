@@ -21,12 +21,11 @@ export default function CRMDashboardRefactored({ onViewCustomers, onViewLeads, o
   const [error, setError] = useState('')
 
   const fetchAnalytics = useCallback(async () => {
-    if (!token) return
-
     try {
       setLoading(true)
       setError('')
-      const crmService = new CRMService(token)
+      // Use token if available, otherwise use empty string for development
+      const crmService = new CRMService(token || '')
       const data = await crmService.fetchAnalytics()
       setAnalytics(data)
     } catch (err) {
@@ -49,6 +48,11 @@ export default function CRMDashboardRefactored({ onViewCustomers, onViewLeads, o
   }
 
   if (!analytics) return null
+
+  // Safety check for analytics structure
+  if (!analytics.customer_metrics || !analytics.lead_metrics || !analytics.interaction_metrics) {
+    return <ErrorDisplay message="Invalid analytics data structure" onRetry={fetchAnalytics} />
+  }
 
   return (
     <div className="space-y-6">

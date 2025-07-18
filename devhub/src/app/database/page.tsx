@@ -21,15 +21,30 @@ export default function DatabasePage() {
   const handleQueryExecute = async (query: string) => {
     try {
       // TODO: Replace with actual API call
-      const response = await fetch('/api/database/query', {
+      const response = await fetch('http://localhost:8005/api/v1/database/query', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query })
       })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
       const result = await response.json()
-      setQueryResult(result)
+      
+      // Normalize the result to ensure expected structure
+      const normalizedResult: QueryResult = {
+        columns: Array.isArray(result.columns) ? result.columns : [],
+        rows: Array.isArray(result.rows) ? result.rows : [],
+        execution_time: typeof result.execution_time === 'number' ? result.execution_time : 0,
+        row_count: typeof result.row_count === 'number' ? result.row_count : (Array.isArray(result.rows) ? result.rows.length : 0)
+      }
+      
+      setQueryResult(normalizedResult)
     } catch (error) {
       console.error('Query execution failed:', error)
+      setQueryResult(null)
     }
   }
 
@@ -86,12 +101,12 @@ export default function DatabasePage() {
             <div className="space-y-6">
               <DatabaseQueryEditor onQueryExecute={handleQueryExecute} />
               
-              {queryResult && (
+              {queryResult && queryResult.columns && queryResult.rows && (
                 <div className="bg-white rounded-lg shadow">
                   <div className="px-6 py-4 border-b border-gray-200">
                     <h3 className="text-lg font-medium text-gray-900">Query Results</h3>
                     <p className="text-sm text-gray-500">
-                      {queryResult.row_count} rows returned in {queryResult.execution_time}ms
+                      {queryResult.row_count || (queryResult.rows || []).length} rows returned in {queryResult.execution_time || 0}ms
                     </p>
                   </div>
                   <div className="p-6">
@@ -99,7 +114,7 @@ export default function DatabasePage() {
                       <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                           <tr>
-                            {queryResult.columns.map((column) => (
+                            {(queryResult.columns || []).map((column) => (
                               <th
                                 key={column}
                                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -110,9 +125,9 @@ export default function DatabasePage() {
                           </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-gray-200">
-                          {queryResult.rows.slice(0, 100).map((row, index) => (
+                          {(queryResult.rows || []).slice(0, 100).map((row, index) => (
                             <tr key={index} className="hover:bg-gray-50">
-                              {queryResult.columns.map((column) => (
+                              {(queryResult.columns || []).map((column) => (
                                 <td
                                   key={column}
                                   className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
@@ -125,10 +140,10 @@ export default function DatabasePage() {
                         </tbody>
                       </table>
                     </div>
-                    {queryResult.rows.length > 100 && (
+                    {(queryResult.rows || []).length > 100 && (
                       <div className="mt-4 text-center">
                         <p className="text-sm text-gray-500">
-                          Showing first 100 rows of {queryResult.row_count} total
+                          Showing first 100 rows of {queryResult.row_count || (queryResult.rows || []).length} total
                         </p>
                       </div>
                     )}
