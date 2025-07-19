@@ -35,15 +35,15 @@ const MetricCard: React.FC<MetricCardProps> = ({
   }
 
   const cardClasses = onClick 
-    ? `bg-white shadow rounded-lg p-6 cursor-pointer transition-shadow ${colorClasses[color].hover}`
-    : 'bg-white shadow rounded-lg p-6'
+    ? `bg-card shadow rounded-lg p-6 cursor-pointer transition-shadow ${colorClasses[color].hover}`
+    : 'bg-card shadow rounded-lg p-6'
 
   return (
     <div className={cardClasses} onClick={onClick}>
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-medium text-gray-600">{title}</p>
-          <p className="text-3xl font-bold text-gray-900">{value}</p>
+          <p className="text-3xl font-bold text-foreground">{value}</p>
           {subtitle && (
             <p className={`text-sm ${colorClasses[color].text}`}>{subtitle}</p>
           )}

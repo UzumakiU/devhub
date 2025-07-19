@@ -47,9 +47,9 @@ export const DataTable = <T,>({
   selectable = false
 }: DataTableProps<T>) => {
   const variantClasses = {
-    default: 'border-collapse border border-gray-200',
-    striped: 'border-collapse border border-gray-200',
-    bordered: 'border-collapse border-2 border-gray-300'
+    default: 'border-collapse border border-border',
+    striped: 'border-collapse border border-border',
+    bordered: 'border-collapse border-2 border-border'
   }
 
   const sizeClasses = {
@@ -121,13 +121,13 @@ export const DataTable = <T,>({
   return (
     <div className="overflow-x-auto">
       <table className={`w-full ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}>
-        <thead className="bg-gray-50">
+        <thead className="bg-background">
           <tr>
             {selectable && (
-              <th className={`${cellPadding[size]} text-left font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200`}>
+              <th className={`${cellPadding[size]} text-left font-medium text-gray-500 uppercase tracking-wider border-b border-border`}>
                 <input
                   type="checkbox"
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-border text-blue-600 focus:ring-blue-500"
                   checked={selectedRows.size === data.length && data.length > 0}
                   onChange={(e) => handleSelectAll(e.target.checked)}
                 />
@@ -136,7 +136,7 @@ export const DataTable = <T,>({
             {columns.map((column) => (
               <th
                 key={column.key}
-                className={`${cellPadding[size]} text-left font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200 ${
+                className={`${cellPadding[size]} text-left font-medium text-gray-500 uppercase tracking-wider border-b border-border ${
                   column.sortable ? 'cursor-pointer hover:bg-gray-100' : ''
                 }`}
                 style={{ width: column.width }}
@@ -158,10 +158,10 @@ export const DataTable = <T,>({
             <tr
               key={index}
               className={`
-                ${variant === 'striped' && index % 2 === 1 ? 'bg-gray-50' : 'bg-white'}
-                ${onRowClick ? 'cursor-pointer hover:bg-gray-50' : ''}
+                ${variant === 'striped' && index % 2 === 1 ? 'bg-background' : 'bg-card'}
+                ${onRowClick ? 'cursor-pointer hover:bg-background' : ''}
                 ${selectedRows.has(index) ? 'bg-blue-50' : ''}
-                border-b border-gray-200
+                border-b border-border
               `}
               onClick={() => onRowClick?.(item, index)}
             >
@@ -169,7 +169,7 @@ export const DataTable = <T,>({
                 <td className={cellPadding[size]}>
                   <input
                     type="checkbox"
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-border text-blue-600 focus:ring-blue-500"
                     checked={selectedRows.has(index)}
                     onChange={(e) => {
                       e.stopPropagation()
@@ -195,7 +195,7 @@ export const DataTable = <T,>({
                 return (
                   <td
                     key={column.key}
-                    className={`${cellPadding[size]} text-gray-900 ${
+                    className={`${cellPadding[size]} text-foreground ${
                       column.align === 'center' ? 'text-center' : 
                       column.align === 'right' ? 'text-right' : 'text-left'
                     }`}

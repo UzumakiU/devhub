@@ -109,9 +109,9 @@ export default function DashboardPage() {
         </div>
 
         {/* Welcome Section */}
-        <div className="bg-white overflow-hidden shadow rounded-lg">
+        <div className="bg-card overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-foreground mb-2">
               Welcome back, {user?.full_name}! 👋
             </h2>
             <p className="text-gray-600">
@@ -170,9 +170,9 @@ export default function DashboardPage() {
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Recent Projects */}
-          <div className="bg-white shadow rounded-lg">
+          <div className="bg-card shadow rounded-lg">
             <div className="px-4 py-5 sm:p-6">
-              <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+              <h3 className="text-lg leading-6 font-medium text-foreground mb-4">
                 Recent Projects
               </h3>
               <ProjectList limit={3} showCreateButton={false} />

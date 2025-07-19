@@ -38,10 +38,10 @@ export default function DatabaseQueryEditor({ onQueryExecute }: DatabaseQueryEdi
   ]
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="px-6 py-4 border-b border-gray-200">
+    <div className="bg-card rounded-lg shadow">
+      <div className="px-6 py-4 border-b border-border">
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium text-gray-900">SQL Query Editor</h3>
+          <h3 className="text-lg font-medium text-foreground">SQL Query Editor</h3>
           <div className="text-sm text-gray-500">
             Ctrl/Cmd + Enter to execute
           </div>
@@ -58,7 +58,7 @@ export default function DatabaseQueryEditor({ onQueryExecute }: DatabaseQueryEdi
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="w-full h-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
+            className="w-full h-32 px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
             placeholder="Enter your SQL query here..."
           />
         </div>
@@ -89,7 +89,7 @@ export default function DatabaseQueryEditor({ onQueryExecute }: DatabaseQueryEdi
           
           <button
             onClick={() => setQuery('')}
-            className="px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-border text-sm font-medium rounded-md text-gray-700 bg-card hover:bg-background focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Clear
           </button>
@@ -102,7 +102,7 @@ export default function DatabaseQueryEditor({ onQueryExecute }: DatabaseQueryEdi
               <button
                 key={index}
                 onClick={() => setQuery(commonQuery)}
-                className="text-left p-3 bg-gray-50 rounded-lg text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                className="text-left p-3 bg-background rounded-lg text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
               >
                 {commonQuery}
               </button>

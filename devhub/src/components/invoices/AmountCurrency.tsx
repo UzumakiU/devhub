@@ -15,7 +15,7 @@ export default function AmountCurrency({ amount, currency, onChange }: AmountCur
           value={amount}
           onChange={onChange}
           required
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         />
       </div>
 
@@ -28,7 +28,7 @@ export default function AmountCurrency({ amount, currency, onChange }: AmountCur
           name="currency"
           value={currency}
           onChange={onChange}
-          className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+          className="mt-1 block w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
         >
           {currencyOptions.map(option => (
             <option key={option.value} value={option.value}>

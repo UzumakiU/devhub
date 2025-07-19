@@ -24,7 +24,7 @@ export const InvoiceListHeader: React.FC<InvoiceListHeaderProps> = ({
 
   return (
     <div className="flex justify-between items-center">
-      <h3 className="text-lg font-medium text-gray-900">
+      <h3 className="text-lg font-medium text-foreground">
         {getTitle()}
       </h3>
       {showCreateButton && (

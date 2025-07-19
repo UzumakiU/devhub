@@ -33,10 +33,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
   }
   
   const variantClasses = {
-    primary: 'bg-blue-600 text-white border border-blue-600 hover:bg-blue-700 hover:border-blue-700 focus:ring-blue-200 disabled:bg-gray-300 disabled:border-gray-300 disabled:text-gray-500',
-    secondary: 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 focus:ring-gray-200 disabled:bg-gray-100 disabled:border-gray-200 disabled:text-gray-400',
-    success: 'bg-green-600 text-white border border-green-600 hover:bg-green-700 hover:border-green-700 focus:ring-green-200 disabled:bg-gray-300 disabled:border-gray-300 disabled:text-gray-500',
-    danger: 'bg-red-600 text-white border border-red-600 hover:bg-red-700 hover:border-red-700 focus:ring-red-200 disabled:bg-gray-300 disabled:border-gray-300 disabled:text-gray-500'
+    primary: 'bg-blue-600 text-white border border-blue-600 hover:bg-blue-700 hover:border-blue-700 focus:ring-blue-200 disabled:bg-gray-300 disabled:border-border disabled:text-gray-500',
+    secondary: 'bg-card text-gray-700 border border-border hover:bg-background hover:border-gray-400 focus:ring-gray-200 disabled:bg-gray-100 disabled:border-border disabled:text-gray-400',
+    success: 'bg-green-600 text-white border border-green-600 hover:bg-green-700 hover:border-green-700 focus:ring-green-200 disabled:bg-gray-300 disabled:border-border disabled:text-gray-500',
+    danger: 'bg-red-600 text-white border border-red-600 hover:bg-red-700 hover:border-red-700 focus:ring-red-200 disabled:bg-gray-300 disabled:border-border disabled:text-gray-500'
   }
   
   const widthClasses = fullWidth ? 'w-full' : ''

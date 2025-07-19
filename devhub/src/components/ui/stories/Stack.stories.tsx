@@ -154,7 +154,7 @@ export const WithWrapping: Story = {
 export const WithDivider: Story = {
   args: {
     direction: 'column',
-    divider: <hr className="border-gray-300" />,
+    divider: <hr className="border-border" />,
     children: (
       <>
         <Card>

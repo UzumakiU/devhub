@@ -57,10 +57,10 @@ export const RecentActivityRefactored: React.FC<RecentActivityProps> = ({
 
   // Main content
   return (
-    <div className={`bg-white shadow rounded-lg ${className}`}>
+    <div className={`bg-card shadow rounded-lg ${className}`}>
       <div className="px-4 py-5 sm:p-6">
         {showHeader && (
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+          <h3 className="text-lg leading-6 font-medium text-foreground mb-4">
             Recent Activity
           </h3>
         )}

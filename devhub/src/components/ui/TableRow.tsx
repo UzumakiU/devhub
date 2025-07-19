@@ -18,8 +18,8 @@ export const TableRow: React.FC<TableRowProps> = ({
   disabled = false
 }) => {
   const variantClasses = {
-    default: 'bg-white border-b border-gray-200',
-    hover: 'bg-white hover:bg-gray-50 border-b border-gray-200 cursor-pointer',
+    default: 'bg-card border-b border-border',
+    hover: 'bg-card hover:bg-background border-b border-border cursor-pointer',
     selected: 'bg-blue-50 border-b border-blue-200'
   }
 

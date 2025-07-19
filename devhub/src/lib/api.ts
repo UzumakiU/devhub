@@ -149,7 +149,7 @@ class ApiClient {
   }
 
   async validateDatabase() {
-    return Promise.resolve({ success: true, message: 'Database validation endpoint not implemented yet' });
+    return this.request('/api/v1/database/validate');
   }
 
   async validateDatabaseSilent() {

@@ -10,10 +10,16 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database URL from environment
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://beast@localhost/devhub_your_business")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://beast@localhost:5432/devhub_platform")
 
-# Create engine
-engine = create_engine(DATABASE_URL)
+# Create engine with connection pooling settings
+engine = create_engine(
+    DATABASE_URL,
+    pool_size=10,
+    max_overflow=20,
+    pool_pre_ping=True,
+    pool_recycle=3600
+)
 
 # Create SessionLocal class
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

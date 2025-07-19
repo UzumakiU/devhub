@@ -139,6 +139,6 @@ describe('LeadCard', () => {
     const { container } = render(<LeadCard lead={mockLead} onConvert={mockOnConvert} />)
     
     const card = container.firstChild as HTMLElement
-    expect(card).toHaveClass('bg-gray-50', 'p-4', 'rounded-lg')
+    expect(card).toHaveClass('bg-background', 'p-4', 'rounded-lg')
   })
 })

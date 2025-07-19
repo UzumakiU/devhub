@@ -34,9 +34,9 @@ export default function SavePasswordModal({
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-card">
         <div className="mt-3">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <h3 className="text-lg font-medium text-foreground mb-4">
             Save Password to Vault
           </h3>
           
@@ -49,7 +49,7 @@ export default function SavePasswordModal({
                 type="text"
                 value={saveUserId}
                 onChange={(e) => setSaveUserId(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="USR-001"
               />
             </div>
@@ -62,7 +62,7 @@ export default function SavePasswordModal({
                 type="text"
                 value={savePassword}
                 onChange={(e) => setSavePassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter password"
               />
             </div>
@@ -76,7 +76,7 @@ export default function SavePasswordModal({
                 maxLength={4}
                 value={saveAccessCode}
                 onChange={(e) => setSaveAccessCode(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center font-mono"
+                className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center font-mono"
                 placeholder="0000"
               />
             </div>

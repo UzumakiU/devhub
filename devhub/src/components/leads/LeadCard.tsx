@@ -17,10 +17,10 @@ export default function LeadCard({ lead, onConvert, isConverting = false }: Lead
   }
 
   return (
-    <div className="bg-gray-50 p-4 rounded-lg">
+    <div className="bg-background p-4 rounded-lg">
       <div className="flex justify-between items-start mb-3">
         <div>
-          <h4 className="font-medium text-gray-900">{lead.name}</h4>
+          <h4 className="font-medium text-foreground">{lead.name}</h4>
           <p className="text-sm text-gray-600">{lead.email}</p>
           {lead.company && (
             <p className="text-sm text-gray-600">{lead.company}</p>

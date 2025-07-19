@@ -32,8 +32,8 @@ export const TableCell: React.FC<TableCellProps> = ({
   }
 
   const baseClasses = component === 'th' 
-    ? 'px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200'
-    : 'px-4 py-3 text-sm text-gray-900 border-b border-gray-200'
+    ? 'px-4 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-border'
+    : 'px-4 py-3 text-sm text-foreground border-b border-border'
 
   const sortableClasses = sortable 
     ? 'cursor-pointer hover:bg-gray-100 select-none' 

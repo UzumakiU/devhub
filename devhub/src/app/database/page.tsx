@@ -1,158 +1,51 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
-import DatabaseStats from '@/components/database/DatabaseStats'
-import DatabaseTableBrowser from '@/components/database/DatabaseTableBrowser'
-import DatabaseTableDetails from '@/components/database/DatabaseTableDetails'
-import DatabaseQueryEditor from '@/components/database/DatabaseQueryEditor'
-import type { QueryResult } from '@/types/database'
+import DatabaseManagerPage from '@/components/database/DatabaseManagerPage'
+import DatabaseSchemaEnhanced from '@/components/database/DatabaseSchemaEnhanced'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
+import type { TableData } from '@/types/database'
 
 export default function DatabasePage() {
-  const [selectedTable, setSelectedTable] = useState<string | null>(null)
-  const [queryResult, setQueryResult] = useState<QueryResult | null>(null)
-  const [activeTab, setActiveTab] = useState<'overview' | 'tables' | 'query'>('overview')
+  const [tables, setTables] = useState<TableData[]>([])
+  const [loading, setLoading] = useState(true)
+  const [activeTab, setActiveTab] = useState('manager')
 
-  const handleTableSelect = (tableName: string) => {
-    setSelectedTable(tableName)
-    setActiveTab('tables')
-  }
-
-  const handleQueryExecute = async (query: string) => {
-    try {
-      // TODO: Replace with actual API call
-      const response = await fetch('http://localhost:8005/api/v1/database/query', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
-      })
-      
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
+  useEffect(() => {
+    const fetchTables = async () => {
+      try {
+        const response = await fetch('/api/v1/database/tables')
+        if (response.ok) {
+          const data = await response.json()
+          setTables(data.tables || [])
+        }
+      } catch (error) {
+        console.error('Error fetching tables:', error)
+      } finally {
+        setLoading(false)
       }
-      
-      const result = await response.json()
-      
-      // Normalize the result to ensure expected structure
-      const normalizedResult: QueryResult = {
-        columns: Array.isArray(result.columns) ? result.columns : [],
-        rows: Array.isArray(result.rows) ? result.rows : [],
-        execution_time: typeof result.execution_time === 'number' ? result.execution_time : 0,
-        row_count: typeof result.row_count === 'number' ? result.row_count : (Array.isArray(result.rows) ? result.rows.length : 0)
-      }
-      
-      setQueryResult(normalizedResult)
-    } catch (error) {
-      console.error('Query execution failed:', error)
-      setQueryResult(null)
     }
-  }
 
-  const tabs = [
-    { id: 'overview', name: 'Overview', icon: '📊' },
-    { id: 'tables', name: 'Tables', icon: '🗃️' },
-    { id: 'query', name: 'Query', icon: '💻' }
-  ] as const
+    fetchTables()
+  }, [])
+
+  const openSchemaViewer = () => {
+    window.open('http://localhost:3005/database', '_blank')
+  }
 
   return (
     <Layout>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Database Management</h1>
-          <p className="mt-2 text-gray-600">Monitor, browse, and query your database</p>
-        </div>
-
-        {/* Tab Navigation */}
-        <div className="mb-6">
-          <nav className="flex space-x-8" aria-label="Tabs">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`${
-                  activeTab === tab.id
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2`}
-              >
-                <span>{tab.icon}</span>
-                <span>{tab.name}</span>
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        {/* Tab Content */}
-        <div className="space-y-6">
-          {activeTab === 'overview' && <DatabaseStats />}
+      <div className="space-y-6">
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-1">
+            <TabsTrigger value="manager">Database Manager</TabsTrigger>
+          </TabsList>
           
-          {activeTab === 'tables' && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <DatabaseTableBrowser 
-                onTableSelect={handleTableSelect}
-                selectedTable={selectedTable}
-              />
-              <DatabaseTableDetails tableName={selectedTable} />
-            </div>
-          )}
-          
-          {activeTab === 'query' && (
-            <div className="space-y-6">
-              <DatabaseQueryEditor onQueryExecute={handleQueryExecute} />
-              
-              {queryResult && queryResult.columns && queryResult.rows && (
-                <div className="bg-white rounded-lg shadow">
-                  <div className="px-6 py-4 border-b border-gray-200">
-                    <h3 className="text-lg font-medium text-gray-900">Query Results</h3>
-                    <p className="text-sm text-gray-500">
-                      {queryResult.row_count || (queryResult.rows || []).length} rows returned in {queryResult.execution_time || 0}ms
-                    </p>
-                  </div>
-                  <div className="p-6">
-                    <div className="overflow-x-auto">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            {(queryResult.columns || []).map((column) => (
-                              <th
-                                key={column}
-                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                              >
-                                {column}
-                              </th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {(queryResult.rows || []).slice(0, 100).map((row, index) => (
-                            <tr key={index} className="hover:bg-gray-50">
-                              {(queryResult.columns || []).map((column) => (
-                                <td
-                                  key={column}
-                                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                                >
-                                  {row[column] !== null ? String(row[column]) : <span className="text-gray-400">NULL</span>}
-                                </td>
-                              ))}
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                    {(queryResult.rows || []).length > 100 && (
-                      <div className="mt-4 text-center">
-                        <p className="text-sm text-gray-500">
-                          Showing first 100 rows of {queryResult.row_count || (queryResult.rows || []).length} total
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+          <TabsContent value="manager">
+            <DatabaseManagerPage initialTables={tables} />
+          </TabsContent>
+        </Tabs>
       </div>
     </Layout>
   )

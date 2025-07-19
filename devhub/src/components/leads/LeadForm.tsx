@@ -50,7 +50,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="bg-card rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
         <h3 className="text-lg font-medium mb-4">Create New Lead</h3>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -60,7 +60,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               required
               value={formData.name}
               onChange={(e) => updateField('name', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter lead name"
             />
           </div>
@@ -72,7 +72,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               required
               value={formData.email}
               onChange={(e) => updateField('email', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter email address"
             />
           </div>
@@ -83,7 +83,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               type="tel"
               value={formData.phone}
               onChange={(e) => updateField('phone', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter phone number"
             />
           </div>
@@ -94,7 +94,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               type="text"
               value={formData.company}
               onChange={(e) => updateField('company', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter company name"
             />
           </div>
@@ -105,7 +105,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               type="text"
               value={formData.job_title}
               onChange={(e) => updateField('job_title', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="Enter job title"
             />
           </div>
@@ -115,7 +115,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
             <select
               value={formData.source}
               onChange={(e) => updateField('source', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {LEAD_SOURCES.map((source) => (
                 <option key={source} value={source}>
@@ -131,7 +131,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               type="number"
               value={formData.estimated_value}
               onChange={(e) => updateField('estimated_value', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="e.g., 5000"
               min="0"
             />
@@ -143,7 +143,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               type="date"
               value={formData.expected_close_date}
               onChange={(e) => updateField('expected_close_date', e.target.value)}
-              className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-1 block w-full border border-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           
@@ -152,7 +152,7 @@ export default function LeadForm({ isOpen, onClose, onSubmit, isLoading = false 
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="px-4 py-2 text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50"
+              className="px-4 py-2 text-gray-600 border border-border rounded-md hover:bg-background disabled:opacity-50"
             >
               Cancel
             </button>

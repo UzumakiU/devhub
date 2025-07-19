@@ -24,7 +24,7 @@ export default function ProjectsPage() {
     <Layout>
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
+          <h1 className="text-2xl font-bold text-foreground">Projects</h1>
           <button
             onClick={() => setShowCreateForm(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
@@ -37,7 +37,7 @@ export default function ProjectsPage() {
 
         {showCreateForm && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <div className="bg-card rounded-lg p-6 w-full max-w-md">
               <ProjectForm
                 onSuccess={handleProjectCreated}
                 onCancel={() => setShowCreateForm(false)}

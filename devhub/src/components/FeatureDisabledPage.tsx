@@ -24,7 +24,7 @@ export default function FeatureDisabledPage({
             </div>
           </div>
           
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl font-bold text-foreground mb-4">
             {moduleName} Module
           </h1>
           
@@ -38,7 +38,7 @@ export default function FeatureDisabledPage({
             </p>
           )}
           
-          <div className="bg-white rounded-md p-4 border border-blue-100">
+          <div className="bg-card rounded-md p-4 border border-blue-100">
             <h3 className="font-semibold text-gray-800 mb-2">Currently Available:</h3>
             <div className="flex flex-wrap gap-2 justify-center">
               {featureFlags.crm && (

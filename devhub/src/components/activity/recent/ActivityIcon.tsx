@@ -9,7 +9,7 @@ export const ActivityIcon: React.FC<ActivityIconProps> = ({ type }) => {
 
   if (!typeInfo.icon) {
     return (
-      <div className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center">
+      <div className="w-8 h-8 bg-background0 rounded-full flex items-center justify-center">
         <span className="text-white text-xs">?</span>
       </div>
     );

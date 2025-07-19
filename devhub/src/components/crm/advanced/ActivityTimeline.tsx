@@ -158,8 +158,8 @@ export default function ActivityTimeline({ leadId }: ActivityTimelineProps) {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity Timeline</h3>
+    <div className="bg-card rounded-lg border border-border p-6">
+      <h3 className="text-lg font-semibold text-foreground mb-4">Activity Timeline</h3>
       
       <div className="flow-root">
         <ul className="-mb-8">
@@ -182,7 +182,7 @@ export default function ActivityTimeline({ leadId }: ActivityTimelineProps) {
                   
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm font-medium text-foreground">
                         {activity.title}
                       </p>
                       <p className="text-xs text-gray-500">
@@ -220,7 +220,7 @@ export default function ActivityTimeline({ leadId }: ActivityTimelineProps) {
       </div>
 
       {/* Add Activity Button */}
-      <div className="mt-4 pt-4 border-t border-gray-200">
+      <div className="mt-4 pt-4 border-t border-border">
         <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">
           + Add Activity
         </button>

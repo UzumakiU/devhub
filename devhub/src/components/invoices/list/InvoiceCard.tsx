@@ -22,11 +22,11 @@ export const InvoiceCard: React.FC<InvoiceCardProps> = ({
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+    <div className="bg-card p-6 rounded-lg shadow hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-3">
-            <h4 className="text-lg font-semibold text-gray-900">
+            <h4 className="text-lg font-semibold text-foreground">
               {InvoiceListUtils.getInvoiceTitle(invoice)}
             </h4>
             <span className={`text-xs px-2 py-1 rounded-full ${InvoiceListUtils.getStatusColor(invoice.status)}`}>
@@ -37,7 +37,7 @@ export const InvoiceCard: React.FC<InvoiceCardProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
             {/* Amount */}
             <div>
-              <span className="font-medium text-gray-900">Amount:</span>
+              <span className="font-medium text-foreground">Amount:</span>
               <div className="text-lg font-semibold text-green-600">
                 {InvoiceListService.formatAmount(invoice.amount, invoice.currency)}
               </div>
@@ -45,19 +45,19 @@ export const InvoiceCard: React.FC<InvoiceCardProps> = ({
             
             {/* Customer */}
             <div>
-              <span className="font-medium text-gray-900">Customer:</span>
+              <span className="font-medium text-foreground">Customer:</span>
               <div>{InvoiceListUtils.getCustomerDisplay(invoice)}</div>
             </div>
             
             {/* Issue Date */}
             <div>
-              <span className="font-medium text-gray-900">Issue Date:</span>
+              <span className="font-medium text-foreground">Issue Date:</span>
               <div>{InvoiceListService.formatDate(invoice.issue_date)}</div>
             </div>
             
             {/* Due Date */}
             <div>
-              <span className="font-medium text-gray-900">Due Date:</span>
+              <span className="font-medium text-foreground">Due Date:</span>
               <div className={InvoiceListUtils.getDateClassName(invoice)}>
                 {InvoiceListService.formatDate(invoice.due_date)}
                 {InvoiceListUtils.shouldHighlightOverdue(invoice) && (
@@ -69,7 +69,7 @@ export const InvoiceCard: React.FC<InvoiceCardProps> = ({
             {/* Paid Date (if applicable) */}
             {invoice.paid_date && (
               <div>
-                <span className="font-medium text-gray-900">Paid Date:</span>
+                <span className="font-medium text-foreground">Paid Date:</span>
                 <div className="text-green-600">
                   {InvoiceListService.formatDate(invoice.paid_date)}
                 </div>
@@ -78,7 +78,7 @@ export const InvoiceCard: React.FC<InvoiceCardProps> = ({
             
             {/* Created Date */}
             <div>
-              <span className="font-medium text-gray-900">Created:</span>
+              <span className="font-medium text-foreground">Created:</span>
               <div>{InvoiceListService.formatDate(invoice.created_at)}</div>
             </div>
           </div>

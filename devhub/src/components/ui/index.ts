@@ -8,11 +8,13 @@ export type { InputProps } from './Input'
 export { default as Card } from './Card'
 export type { CardProps } from './Card'
 
+export { default as Badge } from './Badge'
+export type { BadgeProps } from './Badge'
+
+export { Tabs, TabsContent, TabsList, TabsTrigger } from './Tabs'
+
 export { default as Modal } from './Modal'
 export type { ModalProps } from './Modal'
-
-export { default as Badge } from './Badge'
-export type { BadgeProps, BadgeVariant, BadgeSize } from './Badge'
 
 // Form Components
 export { default as FormField } from './FormField'

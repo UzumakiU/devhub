@@ -6,7 +6,7 @@ interface StatsCardProps {
   change?: string
   changeType?: 'positive' | 'negative' | 'neutral'
   icon?: React.ReactNode
-  color?: 'blue' | 'green' | 'yellow' | 'red' | 'purple' | 'indigo'
+  color?: 'primary' | 'success' | 'warning' | 'error' | 'info' | 'secondary'
 }
 
 export default function StatsCard({ 
@@ -15,37 +15,38 @@ export default function StatsCard({
   change, 
   changeType = 'neutral',
   icon,
-  color = 'blue'
+  color = 'primary'
 }: StatsCardProps) {
+  // Use semantic color classes that automatically adapt to theme
   const colorClasses = {
-    blue: 'bg-blue-500',
-    green: 'bg-green-500',
-    yellow: 'bg-yellow-500',
-    red: 'bg-red-500',
-    purple: 'bg-purple-500',
-    indigo: 'bg-indigo-500',
+    primary: 'bg-primary text-primary-foreground',
+    success: 'bg-success text-success-foreground',
+    warning: 'bg-warning text-warning-foreground',
+    error: 'bg-error text-error-foreground',
+    info: 'bg-info text-info-foreground',
+    secondary: 'bg-secondary text-secondary-foreground',
   }
 
   const changeClasses = {
-    positive: 'text-green-600',
-    negative: 'text-red-600',
-    neutral: 'text-gray-500'
+    positive: 'text-stats-positive',
+    negative: 'text-stats-negative',
+    neutral: 'text-stats-neutral'
   }
 
   return (
-    <div className="bg-white overflow-hidden shadow rounded-lg">
+    <div className="bg-card overflow-hidden shadow-lg rounded-lg border border-border">
       <div className="p-5">
         <div className="flex items-center">
           <div className="flex-shrink-0">
             <div className={`w-8 h-8 ${colorClasses[color]} rounded-md flex items-center justify-center`}>
-              {icon || <span className="text-white text-sm font-semibold">{title.charAt(0)}</span>}
+              {icon || <span className="text-sm font-semibold">{title.charAt(0)}</span>}
             </div>
           </div>
           <div className="ml-5 w-0 flex-1">
             <dl>
-              <dt className="text-sm font-medium text-gray-500 truncate">{title}</dt>
+              <dt className="text-sm font-medium text-muted-foreground truncate">{title}</dt>
               <dd className="flex items-baseline">
-                <div className="text-2xl font-semibold text-gray-900">{value}</div>
+                <div className="text-2xl font-semibold text-foreground">{value}</div>
                 {change && (
                   <div className={`ml-2 flex items-baseline text-sm font-semibold ${changeClasses[changeType]}`}>
                     {changeType === 'positive' && (

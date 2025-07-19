@@ -31,7 +31,7 @@ export const Loading: React.FC<LoadingProps> = ({
 
   const renderSpinner = () => (
     <div
-      className={`animate-spin rounded-full border-2 border-gray-300 border-t-blue-600 ${sizeClasses[size]}`}
+      className={`animate-spin rounded-full border-2 border-border border-t-blue-600 ${sizeClasses[size]}`}
     />
   )
 
@@ -92,7 +92,7 @@ export const Loading: React.FC<LoadingProps> = ({
 
   if (overlay) {
     return (
-      <div className="fixed inset-0 bg-white bg-opacity-75 flex items-center justify-center z-50">
+      <div className="fixed inset-0 bg-card bg-opacity-75 flex items-center justify-center z-50">
         {content}
       </div>
     )
@@ -157,7 +157,7 @@ export const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
     <div className="relative">
       {children}
       {loading && (
-        <div className="absolute inset-0 bg-white bg-opacity-75 flex items-center justify-center">
+        <div className="absolute inset-0 bg-card bg-opacity-75 flex items-center justify-center">
           <Loading variant={variant} size={size} text={text} />
         </div>
       )}

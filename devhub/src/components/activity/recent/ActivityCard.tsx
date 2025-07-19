@@ -24,7 +24,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({ activity, isLast }) 
           <div className="min-w-0 flex-1">
             <div>
               <div className="text-sm">
-                <span className="font-medium text-gray-900">
+                <span className="font-medium text-foreground">
                   {RecentActivityUtils.getActivityTitle(activity)}
                 </span>
               </div>

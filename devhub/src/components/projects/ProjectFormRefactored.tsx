@@ -74,15 +74,15 @@ export const ProjectFormRefactored: React.FC<ProjectFormRefactoredProps> = ({
   const isEditing = Boolean(project?.system_id);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-gray-900">
+    <div className="bg-card p-6 rounded-lg shadow-lg w-full">
+      <h2 className="text-2xl font-bold mb-6 text-foreground">
         {isEditing ? 'Edit Project' : 'Create New Project'}
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Basic Information Section */}
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Project Information</h3>
+        <div className="border-b border-border pb-6">
+          <h3 className="text-lg font-medium text-foreground mb-4">Project Information</h3>
           <ProjectBasicInfo
             formData={formData}
             onChange={handleFieldChange}
@@ -91,8 +91,8 @@ export const ProjectFormRefactored: React.FC<ProjectFormRefactoredProps> = ({
         </div>
 
         {/* Status and Timeline Section */}
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">Status & Timeline</h3>
+        <div className="border-b border-border pb-6">
+          <h3 className="text-lg font-medium text-foreground mb-4">Status & Timeline</h3>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <ProjectStatus
               formData={formData}

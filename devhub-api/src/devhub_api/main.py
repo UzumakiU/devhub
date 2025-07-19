@@ -10,7 +10,7 @@ import logging
 
 # Import from our organized structure
 from .core import settings, get_db
-from .api.v1 import auth, crm, admin, database, projects, invoices
+from .api.v1 import auth, crm, admin, database, projects, invoices, multitenant
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -41,6 +41,7 @@ def create_app() -> FastAPI:
     app.include_router(database.router, prefix="/api/v1/database", tags=["database"])
     app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
     app.include_router(invoices.router, prefix="/api/v1/invoices", tags=["invoices"])
+    app.include_router(multitenant.router, prefix="/api/v1/multitenant", tags=["multitenant"])
 
     @app.get("/")
     async def root():

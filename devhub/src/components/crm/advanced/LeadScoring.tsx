@@ -63,9 +63,9 @@ export default function LeadScoring({ lead, onScoreUpdate }: LeadScoringProps) {
   const currentScore = calculateScore(scoreBreakdown)
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <div className="bg-card rounded-lg border border-border p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Lead Scoring</h3>
+        <h3 className="text-lg font-semibold text-foreground">Lead Scoring</h3>
         <div className={`px-3 py-1 rounded-full text-sm font-medium ${getScoreColor(currentScore)}`}>
           {currentScore}% - {getScoreLabel(currentScore)}
         </div>
@@ -140,7 +140,7 @@ export default function LeadScoring({ lead, onScoreUpdate }: LeadScoringProps) {
       </div>
 
       {/* Score History */}
-      <div className="mt-6 pt-4 border-t border-gray-200">
+      <div className="mt-6 pt-4 border-t border-border">
         <h4 className="text-sm font-medium text-gray-700 mb-2">Score History</h4>
         <div className="text-xs text-gray-500 space-y-1">
           <div>Today: {currentScore}% (+5)</div>

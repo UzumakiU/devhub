@@ -37,7 +37,7 @@ export default function DatabaseStats() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white rounded-lg shadow p-6">
+          <div key={i} className="bg-card rounded-lg shadow p-6">
             <div className="animate-pulse">
               <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
               <div className="h-8 bg-gray-200 rounded w-1/2"></div>
@@ -52,7 +52,7 @@ export default function DatabaseStats() {
     <div className="space-y-6">
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-card rounded-lg shadow p-6">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
@@ -63,12 +63,12 @@ export default function DatabaseStats() {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Total Tables</p>
-              <p className="text-2xl font-semibold text-gray-900">{stats?.total_tables || 0}</p>
+              <p className="text-2xl font-semibold text-foreground">{stats?.total_tables || 0}</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-card rounded-lg shadow p-6">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
@@ -79,12 +79,12 @@ export default function DatabaseStats() {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Total Records</p>
-              <p className="text-2xl font-semibold text-gray-900">{stats?.total_records?.toLocaleString() || 0}</p>
+              <p className="text-2xl font-semibold text-foreground">{stats?.total_records?.toLocaleString() || 0}</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-card rounded-lg shadow p-6">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
@@ -98,7 +98,7 @@ export default function DatabaseStats() {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Health Status</p>
-              <p className="text-2xl font-semibold text-gray-900 capitalize">
+              <p className="text-2xl font-semibold text-foreground capitalize">
                 {validation?.status || 'Unknown'}
               </p>
             </div>
@@ -108,15 +108,15 @@ export default function DatabaseStats() {
 
       {/* Table Stats */}
       {stats?.table_stats && stats.table_stats.length > 0 && (
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">Table Statistics</h3>
+        <div className="bg-card rounded-lg shadow">
+          <div className="px-6 py-4 border-b border-border">
+            <h3 className="text-lg font-medium text-foreground">Table Statistics</h3>
           </div>
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {stats.table_stats.map((table) => (
-                <div key={table.table_name} className="bg-gray-50 rounded-lg p-4">
-                  <p className="font-medium text-gray-900">{table.table_name}</p>
+                <div key={table.table_name} className="bg-background rounded-lg p-4">
+                  <p className="font-medium text-foreground">{table.table_name}</p>
                   <p className="text-sm text-gray-500">{table.record_count.toLocaleString()} records</p>
                 </div>
               ))}
@@ -127,9 +127,9 @@ export default function DatabaseStats() {
 
       {/* Validation Issues */}
       {validation && validation.total_issues > 0 && (
-        <div className="bg-white rounded-lg shadow">
-          <div className="px-6 py-4 border-b border-gray-200">
-            <h3 className="text-lg font-medium text-gray-900">Database Issues</h3>
+        <div className="bg-card rounded-lg shadow">
+          <div className="px-6 py-4 border-b border-border">
+            <h3 className="text-lg font-medium text-foreground">Database Issues</h3>
             <p className="text-sm text-gray-500">{validation.total_issues} issues found</p>
           </div>
           <div className="p-6 space-y-4">

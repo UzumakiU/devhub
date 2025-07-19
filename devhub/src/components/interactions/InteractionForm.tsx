@@ -31,8 +31,8 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
   }
 
   return (
-    <div className="bg-white border rounded-lg p-6 mb-6">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Create New Interaction</h3>
+    <div className="bg-card border rounded-lg p-6 mb-6">
+      <h3 className="text-lg font-medium text-foreground mb-4">Create New Interaction</h3>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -43,7 +43,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
             <select
               value={formData.interaction_type}
               onChange={(e) => setFormData({ ...formData, interaction_type: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               required
             >
               <option value="">Select type...</option>
@@ -62,7 +62,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
             <select
               value={formData.priority}
               onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               {priorities.map((priority) => (
                 <option key={priority.value} value={priority.value}>
@@ -81,7 +81,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
             type="text"
             value={formData.subject}
             onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             required
           />
         </div>
@@ -94,7 +94,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
             value={formData.description}
             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             required
           />
         </div>
@@ -107,7 +107,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
             <select
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             >
               {statuses.map((status) => (
                 <option key={status} value={status}>
@@ -123,7 +123,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
                 type="checkbox"
                 checked={formData.is_billable}
                 onChange={(e) => setFormData({ ...formData, is_billable: e.target.checked })}
-                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="rounded border-border text-blue-600 focus:ring-blue-500"
               />
               <span className="font-medium text-gray-700">Billable</span>
             </label>
@@ -134,7 +134,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
                 placeholder="Hours"
                 value={formData.billable_hours}
                 onChange={(e) => setFormData({ ...formData, billable_hours: e.target.value })}
-                className="mt-2 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mt-2 w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
               />
             )}
           </div>
@@ -149,7 +149,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
               type="datetime-local"
               value={formData.scheduled_at}
               onChange={(e) => setFormData({ ...formData, scheduled_at: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
@@ -161,7 +161,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
               type="datetime-local"
               value={formData.completed_at}
               onChange={(e) => setFormData({ ...formData, completed_at: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 
@@ -173,7 +173,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
               type="date"
               value={formData.follow_up_date}
               onChange={(e) => setFormData({ ...formData, follow_up_date: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
         </div>
@@ -186,7 +186,7 @@ export default function InteractionForm({ onSubmit, onCancel, loading }: Interac
             value={formData.outcome}
             onChange={(e) => setFormData({ ...formData, outcome: e.target.value })}
             rows={2}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             placeholder="Outcome or result of the interaction..."
           />
         </div>

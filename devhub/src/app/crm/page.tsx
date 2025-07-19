@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Layout from '@/components/Layout'
-import CRMDashboardRefactored from '@/components/CRMDashboardRefactored'
+import MultiTenantCRMDashboard from '@/components/MultiTenantCRMDashboard'
 import LeadManagementRefactored from '@/components/LeadManagementRefactored'
 import CustomerInteractions from '@/components/CustomerInteractions'
 import CustomerList from '@/components/CustomerList'
@@ -48,7 +48,7 @@ export default function CRMPage() {
     switch (currentView) {
       case 'dashboard':
         return (
-          <CRMDashboardRefactored
+          <MultiTenantCRMDashboard
             onViewCustomers={handleViewCustomers}
             onViewLeads={handleViewLeads}
             onViewInteractions={handleViewInteractions}
@@ -95,7 +95,7 @@ export default function CRMPage() {
       
       default:
         return (
-          <CRMDashboardRefactored
+          <MultiTenantCRMDashboard
             onViewCustomers={handleViewCustomers}
             onViewLeads={handleViewLeads}
             onViewInteractions={handleViewInteractions}
@@ -108,7 +108,7 @@ export default function CRMPage() {
     <Layout>
       <div className="space-y-6">
         {/* Navigation Breadcrumbs */}
-        <div className="bg-white shadow rounded-lg px-6 py-3">
+        <div className="bg-card shadow rounded-lg px-6 py-3">
           <nav className="flex" aria-label="Breadcrumb">
             <ol className="inline-flex items-center space-x-1 md:space-x-3">
               <li className="inline-flex items-center">
@@ -151,7 +151,7 @@ export default function CRMPage() {
 
         {/* Quick Stats Footer (always visible) */}
         {currentView !== 'dashboard' && (
-          <div className="bg-white shadow rounded-lg p-4">
+          <div className="bg-card shadow rounded-lg p-4">
             <div className="flex items-center justify-center space-x-8 text-sm text-gray-600">
               <button 
                 onClick={handleViewCustomers}

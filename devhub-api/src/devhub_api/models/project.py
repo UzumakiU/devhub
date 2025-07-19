@@ -48,7 +48,7 @@ class Project(BaseModel, TimestampMixin):
     
     # SQLAlchemy relationships
     tenant = relationship("Tenant", back_populates="projects")
-    owner = relationship("User", foreign_keys=[owner_id])  # Updated to match actual column
+    owner = relationship("User", foreign_keys=[owner_id], viewonly=True)  # Make viewonly to avoid conflicts
     # invoices = relationship("Invoice", back_populates="project")  # May not exist
     
     # Indexes for performance

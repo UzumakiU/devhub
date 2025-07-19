@@ -16,10 +16,10 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   itemCount = 4 
 }) => {
   return (
-    <div className="bg-white shadow rounded-lg">
+    <div className="bg-card shadow rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         {showHeader && (
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+          <h3 className="text-lg leading-6 font-medium text-foreground mb-4">
             Recent Activity
           </h3>
         )}
@@ -45,10 +45,10 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
 
 export const EmptyState: React.FC<EmptyStateProps> = ({ showHeader = true }) => {
   return (
-    <div className="bg-white shadow rounded-lg">
+    <div className="bg-card shadow rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         {showHeader && (
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+          <h3 className="text-lg leading-6 font-medium text-foreground mb-4">
             Recent Activity
           </h3>
         )}
@@ -68,10 +68,10 @@ export const ErrorState: React.FC<{ error: string; onRetry: () => void; showHead
   showHeader = true 
 }) => {
   return (
-    <div className="bg-white shadow rounded-lg">
+    <div className="bg-card shadow rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         {showHeader && (
-          <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+          <h3 className="text-lg leading-6 font-medium text-foreground mb-4">
             Recent Activity
           </h3>
         )}

@@ -72,7 +72,7 @@ export default function ProjectList({
 
   if (loading) {
     return (
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-card shadow rounded-lg p-6">
         <div className="animate-pulse space-y-4">
           <div className="h-4 bg-gray-200 rounded w-1/4"></div>
           <div className="space-y-3">
@@ -87,7 +87,7 @@ export default function ProjectList({
 
   if (error) {
     return (
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-card shadow rounded-lg p-6">
         <div className="text-center text-red-600">
           <p>{error}</p>
           <button 
@@ -102,10 +102,10 @@ export default function ProjectList({
   }
 
   return (
-    <div className="bg-white shadow rounded-lg">
+    <div className="bg-card shadow rounded-lg">
       <div className="p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-medium text-gray-900">
+          <h3 className="text-lg font-medium text-foreground">
             Recent Projects {limit && `(${projects.length})`}
           </h3>
           {showCreateButton && (
@@ -128,11 +128,11 @@ export default function ProjectList({
         ) : (
           <div className="space-y-3">
             {projects.map((project, index) => (
-              <div key={project.system_id || project.id || index} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50">
+              <div key={project.system_id || project.id || index} className="border border-border rounded-lg p-4 hover:bg-background">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-2">
-                      <h4 className="text-sm font-medium text-gray-900">{project.name}</h4>
+                      <h4 className="text-sm font-medium text-foreground">{project.name}</h4>
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
                         {project.status}
                       </span>

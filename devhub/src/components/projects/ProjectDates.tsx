@@ -38,7 +38,7 @@ export const ProjectDates: React.FC<BaseProjectProps> = ({
           value={formData.start_date}
           onChange={(e) => handleStartDateChange(e.target.value)}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-            errors?.start_date ? 'border-red-500' : 'border-gray-300'
+            errors?.start_date ? 'border-red-500' : 'border-border'
           }`}
         />
         {errors?.start_date && (
@@ -62,7 +62,7 @@ export const ProjectDates: React.FC<BaseProjectProps> = ({
           onChange={(e) => onChange('due_date', e.target.value)}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
             errors?.due_date ? 'border-red-500' : 
-            isOverdue ? 'border-red-300 bg-red-50' : 'border-gray-300'
+            isOverdue ? 'border-red-300 bg-red-50' : 'border-border'
           }`}
         />
         {errors?.due_date && (

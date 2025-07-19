@@ -328,7 +328,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow p-6">
         <div className="animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/4 mb-4"></div>
           <div className="space-y-2">
@@ -342,11 +342,11 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
   }
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="px-6 py-4 border-b border-gray-200 space-y-3">
+    <div className="bg-card rounded-lg shadow">
+      <div className="px-6 py-4 border-b border-border space-y-3">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-medium text-gray-900">Database Tables</h3>
+            <h3 className="text-lg font-medium text-foreground">Database Tables</h3>
             <p className="text-sm text-gray-500">{tables.length} tables found</p>
           </div>
           <div className="flex items-center space-x-2">
@@ -393,7 +393,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
           </div>
           <input
             type="text"
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+            className="block w-full pl-10 pr-3 py-2 border border-border rounded-md leading-5 bg-card placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
             placeholder="Search tables..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -410,7 +410,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
                 placeholder="Table name"
                 value={newTableName}
                 onChange={(e) => setNewTableName(e.target.value)}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
+                className="flex-1 px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
               />
               <button
                 onClick={handleCreateTable}
@@ -440,12 +440,12 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
             {filteredTableGroups.map((group, groupIndex) => (
               <div key={group.name} className="border-b border-gray-100 last:border-b-0">
                 {/* Group Header */}
-                <div className="px-6 py-2 bg-gray-50 border-b border-gray-200">
+                <div className="px-6 py-2 bg-background border-b border-border">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <span className="text-lg">{group.icon}</span>
                       <div>
-                        <h4 className="text-sm font-semibold text-gray-900">{group.name}</h4>
+                        <h4 className="text-sm font-semibold text-foreground">{group.name}</h4>
                         <p className="text-xs text-gray-500">{group.description}</p>
                       </div>
                     </div>
@@ -458,7 +458,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
                   {group.tables.map((table) => (
                     <div
                       key={table.table_name}
-                      className={`px-6 py-3 cursor-pointer hover:bg-gray-50 transition-colors ${
+                      className={`px-6 py-3 cursor-pointer hover:bg-background transition-colors ${
                         selectedTable === table.table_name ? 'bg-blue-50 border-blue-200' : ''
                       }`}
                       onClick={() => onTableSelect(table.table_name)}
@@ -472,7 +472,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
                             'bg-gradient-to-b from-gray-400 to-gray-600'
                           }`}></div>
                           <div>
-                            <p className="font-medium text-gray-900">{table.table_name}</p>
+                            <p className="font-medium text-foreground">{table.table_name}</p>
                             <div className="flex items-center space-x-2 text-sm text-gray-500">
                               <span>{table.columns?.length || 0} columns</span>
                               {table.relationships && table.relationships.length > 0 && (
@@ -501,7 +501,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
                         <div className="flex items-center space-x-2">
                           <div className="text-right">
                             <div className="flex flex-col items-end">
-                              <p className="text-sm font-medium text-gray-900">
+                              <p className="text-sm font-medium text-foreground">
                                 {(table.total_rows || 0).toLocaleString()}
                               </p>
                               <p className="text-xs text-gray-500">
@@ -537,14 +537,14 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
             ) : tables).map((table) => (
               <div
                 key={table.table_name}
-                className={`px-6 py-3 cursor-pointer border-b border-gray-100 hover:bg-gray-50 ${
+                className={`px-6 py-3 cursor-pointer border-b border-gray-100 hover:bg-background ${
                   selectedTable === table.table_name ? 'bg-blue-50 border-blue-200' : ''
                 }`}
                 onClick={() => onTableSelect(table.table_name)}
               >
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="font-medium text-gray-900">{table.table_name}</p>
+                    <p className="font-medium text-foreground">{table.table_name}</p>
                     <div className="text-sm text-gray-500 space-x-2">
                       <span>{table.columns?.length || 0} columns</span>
                       {table.relationships && table.relationships.length > 0 && (
@@ -565,7 +565,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="text-right">
-                      <p className="text-sm font-medium text-gray-900">{(table.total_rows || 0).toLocaleString()}</p>
+                      <p className="text-sm font-medium text-foreground">{(table.total_rows || 0).toLocaleString()}</p>
                       <p className="text-sm text-gray-500">records</p>
                     </div>
                     <button
@@ -597,9 +597,9 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
       {/* Relationships Popup Modal */}
       {showRelationships && selectedTableForRelationships && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 max-h-[80vh] overflow-hidden">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900">
+          <div className="bg-card rounded-lg shadow-xl max-w-md w-full mx-4 max-h-[80vh] overflow-hidden">
+            <div className="flex items-center justify-between p-4 border-b border-border">
+              <h3 className="text-lg font-semibold text-foreground">
                 Table Relationships: {selectedTableForRelationships}
               </h3>
               <button
@@ -687,7 +687,7 @@ export default function DatabaseTableBrowser({ onTableSelect, selectedTable }: D
               })()}
             </div>
             
-            <div className="p-4 border-t border-gray-200 bg-gray-50">
+            <div className="p-4 border-t border-border bg-background">
               <p className="text-xs text-gray-500">
                 These relationships are inferred from common database patterns and naming conventions.
               </p>

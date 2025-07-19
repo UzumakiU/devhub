@@ -11,8 +11,8 @@ const QuickActions: React.FC<QuickActionsProps> = ({
   onRefresh
 }) => {
   return (
-    <div className="bg-white shadow rounded-lg p-6">
-      <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+    <div className="bg-card shadow rounded-lg p-6">
+      <h3 className="text-lg font-medium text-foreground mb-4">Quick Actions</h3>
       <div className="flex flex-wrap gap-3">
         <Button variant="primary" onClick={onViewLeads}>
           View All Leads

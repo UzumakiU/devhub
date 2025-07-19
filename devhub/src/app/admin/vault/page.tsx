@@ -128,7 +128,7 @@ export default function PasswordVaultPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen w-full bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
@@ -158,7 +158,7 @@ export default function PasswordVaultPage() {
         {/* Page Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Password Vault</h1>
+            <h1 className="text-3xl font-bold text-foreground">Password Vault</h1>
             <p className="mt-1 text-sm text-gray-600">
               Secure password storage and recovery system
             </p>

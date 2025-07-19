@@ -21,7 +21,7 @@ export const InteractionCard: React.FC<InteractionCardProps> = ({
   const relativeTime = InteractionUtils.getRelativeTime(interaction.created_at);
 
   return (
-    <div className={`bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow ${
+    <div className={`bg-card shadow rounded-lg p-6 hover:shadow-md transition-shadow ${
       isOverdue ? 'border-l-4 border-red-500' : ''
     }`}>
       <div className="flex items-start justify-between">
@@ -29,7 +29,7 @@ export const InteractionCard: React.FC<InteractionCardProps> = ({
           {/* Header */}
           <div className="flex items-center space-x-3 mb-2">
             <span className="text-2xl">{typeInfo.icon}</span>
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-foreground">
               {InteractionUtils.formatSubject(interaction.subject)}
             </h3>
             <span className={`px-2 py-1 rounded-full text-xs font-medium ${priorityInfo.color}`}>

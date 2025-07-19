@@ -20,7 +20,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ itemCount = 3 }) => 
   return (
     <div className="animate-pulse space-y-4">
       {[...Array(itemCount)].map((_, i) => (
-        <div key={i} className="bg-white p-6 rounded-lg shadow">
+        <div key={i} className="bg-card p-6 rounded-lg shadow">
           <div className="flex justify-between items-start">
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-3">
@@ -80,7 +80,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   };
 
   return (
-    <div className="text-center py-12 bg-white rounded-lg shadow">
+    <div className="text-center py-12 bg-card rounded-lg shadow">
       <div className="text-gray-500">
         <svg 
           className="mx-auto h-12 w-12 text-gray-400" 
@@ -95,7 +95,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
             d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" 
           />
         </svg>
-        <h3 className="mt-2 text-sm font-medium text-gray-900">No invoices</h3>
+        <h3 className="mt-2 text-sm font-medium text-foreground">No invoices</h3>
         <p className="mt-1 text-sm text-gray-500">
           Get started by creating your first invoice.
         </p>

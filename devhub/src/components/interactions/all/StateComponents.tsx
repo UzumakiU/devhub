@@ -8,7 +8,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ onBack }) => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">All Customer Interactions</h2>
+        <h2 className="text-2xl font-bold text-foreground">All Customer Interactions</h2>
         <button
           onClick={onBack}
           className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700"
@@ -19,7 +19,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({ onBack }) => {
       
       <div className="animate-pulse space-y-4">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="bg-white p-6 rounded-lg shadow">
+          <div key={i} className="bg-card p-6 rounded-lg shadow">
             <div className="flex items-center space-x-3 mb-3">
               <div className="h-8 w-8 bg-gray-200 rounded"></div>
               <div className="h-5 bg-gray-200 rounded w-1/3"></div>
@@ -51,7 +51,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({ error, onBack, onRetry }
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">All Customer Interactions</h2>
+        <h2 className="text-2xl font-bold text-foreground">All Customer Interactions</h2>
         <button
           onClick={onBack}
           className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700"
@@ -100,7 +100,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onBack }) => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">All Customer Interactions</h2>
+          <h2 className="text-2xl font-bold text-foreground">All Customer Interactions</h2>
           <p className="text-gray-600">0 interactions across all customers</p>
         </div>
         <button
@@ -111,9 +111,9 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ onBack }) => {
         </button>
       </div>
 
-      <div className="bg-white shadow rounded-lg p-12 text-center">
+      <div className="bg-card shadow rounded-lg p-12 text-center">
         <div className="text-gray-400 text-6xl mb-4">💬</div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No interactions yet</h3>
+        <h3 className="text-lg font-medium text-foreground mb-2">No interactions yet</h3>
         <p className="text-gray-500 max-w-sm mx-auto">
           Start engaging with your customers to see interactions here. Create interactions from individual customer pages.
         </p>

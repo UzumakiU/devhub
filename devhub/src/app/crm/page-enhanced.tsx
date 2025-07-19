@@ -219,13 +219,13 @@ export default function CRMPage() {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen w-full bg-background w-full">
         {/* Enhanced Navigation */}
         {currentView === 'dashboard' && (
-          <div className="bg-white shadow-sm border-b border-gray-200 mb-6">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-card shadow-sm border-b border-border mb-6 w-full">
+            <div className="w-full px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center py-4">
-                <h1 className="text-3xl font-bold text-gray-900">CRM Dashboard</h1>
+                <h1 className="text-3xl font-bold text-foreground">CRM Dashboard</h1>
                 <div className="flex space-x-4">
                   <button
                     onClick={handleViewAnalytics}
@@ -258,7 +258,7 @@ export default function CRMPage() {
         )}
 
         {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
           {renderCurrentView()}
         </div>
       </div>

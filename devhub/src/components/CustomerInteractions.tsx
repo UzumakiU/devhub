@@ -109,7 +109,7 @@ export default function CustomerInteractions({ customerId, onBack }: CustomerInt
             </svg>
           </button>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Customer Interactions</h2>
+            <h2 className="text-2xl font-bold text-foreground">Customer Interactions</h2>
             {customer && (
               <p className="text-gray-600">
                 {customer.name} ({customer.system_id}) - {customer.email}
@@ -146,7 +146,7 @@ export default function CustomerInteractions({ customerId, onBack }: CustomerInt
 
       {/* Interactions List */}
       <div>
-        <h3 className="text-lg font-medium text-gray-900 mb-4">
+        <h3 className="text-lg font-medium text-foreground mb-4">
           All Interactions ({interactions.length})
         </h3>
         <InteractionList interactions={interactions} loading={loading && !!customer} />

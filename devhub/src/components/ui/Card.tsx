@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({
   border = true,
   hover = false
 }) => {
-  const baseClasses = 'bg-white rounded-lg transition-all duration-200'
+  const baseClasses = 'bg-card rounded-lg transition-all duration-200'
   
   const paddingClasses = {
     none: '',
@@ -35,7 +35,7 @@ const Card: React.FC<CardProps> = ({
     lg: 'shadow-lg'
   }
   
-  const borderClasses = border ? 'border border-gray-200' : ''
+  const borderClasses = border ? 'border border-border' : ''
   const hoverClasses = hover ? 'hover:shadow-lg hover:-translate-y-0.5' : ''
   
   const classes = `${baseClasses} ${paddingClasses[padding]} ${shadowClasses[shadow]} ${borderClasses} ${hoverClasses} ${className}`.trim()

@@ -178,13 +178,13 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
       }`}
       onClick={handleBackdropClick}
     >
-      <div className={`bg-white rounded-xl shadow-2xl w-[90vw] h-[85vh] max-w-7xl flex flex-col transform transition-all duration-300 ${
+      <div className={`bg-card rounded-xl shadow-2xl w-[90vw] h-[85vh] max-w-7xl flex flex-col transform transition-all duration-300 ${
         isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
       }`}>
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-xl">
+        <div className="flex items-center justify-between p-6 border-b border-border bg-gradient-to-r from-blue-50 to-indigo-50 rounded-t-xl">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{tableData.table_name}</h2>
+            <h2 className="text-xl font-bold text-foreground">{tableData.table_name}</h2>
             <p className="text-sm text-gray-600">
               {data.length.toLocaleString()} records total • Showing {startIndex + 1}-{Math.min(endIndex, data.length)}
               {selectedRows.size > 0 && ` • ${selectedRows.size} selected`}
@@ -243,7 +243,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
 
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white hover:bg-opacity-50 rounded-full transition-all duration-200"
+              className="p-2 hover:bg-card hover:bg-opacity-50 rounded-full transition-all duration-200"
             >
               <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -268,7 +268,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
                           type="text"
                           value={newRow[column.column_name] || ''}
                           onChange={(e) => setNewRow(prev => ({ ...prev, [column.column_name]: e.target.value }))}
-                          className="px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
+                          className="px-2 py-1 text-sm border border-border rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
                           placeholder={column.data_type}
                         />
                       </div>
@@ -295,7 +295,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
               <div className="flex-1 overflow-auto">
                 <div className="h-full">
                   <table className="min-w-full divide-y divide-gray-200 h-full">
-                    <thead className="bg-gray-50 sticky top-0 z-10">
+                    <thead className="bg-background sticky top-0 z-10">
                       <tr>
                         {viewMode === 'edit' && (
                           <th className="px-3 py-3 text-left">
@@ -303,14 +303,14 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
                               type="checkbox"
                               onChange={toggleAllRows}
                               checked={currentData.length > 0 && currentData.every((_, i) => selectedRows.has(startIndex + i))}
-                              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              className="rounded border-border text-blue-600 focus:ring-blue-500"
                             />
                           </th>
                         )}
                         {tableData.columns?.map((column) => (
                           <th 
                             key={column.column_name}
-                            className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0"
+                            className="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-r border-border last:border-r-0"
                           >
                             <div className="flex flex-col min-w-0">
                               <span className="truncate font-semibold">{column.column_name}</span>
@@ -327,38 +327,38 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
                         )}
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-card divide-y divide-gray-200">
                       {currentData.map((row, index) => {
                         const actualIndex = startIndex + index
                         return (
-                          <tr key={actualIndex} className="hover:bg-gray-50 transition-colors">
+                          <tr key={actualIndex} className="hover:bg-background transition-colors">
                             {viewMode === 'edit' && (
                               <td className="px-3 py-2">
                                 <input
                                   type="checkbox"
                                   checked={selectedRows.has(actualIndex)}
                                   onChange={() => toggleRowSelection(index)}
-                                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                  className="rounded border-border text-blue-600 focus:ring-blue-500"
                                 />
                               </td>
                             )}
                             {tableData.columns?.map((column) => (
                               <td 
                                 key={column.column_name}
-                                className="px-3 py-2 text-sm text-gray-900 border-r border-gray-100 last:border-r-0"
+                                className="px-3 py-2 text-sm text-foreground border-r border-gray-100 last:border-r-0"
                               >
                                 {viewMode === 'edit' ? (
                                   <input
                                     type="text"
                                     value={row[column.column_name] !== null && row[column.column_name] !== undefined ? String(row[column.column_name]) : ''}
                                     onChange={(e) => handleCellEdit(index, column.column_name, e.target.value)}
-                                    className="w-full px-2 py-1 text-sm border border-transparent hover:border-gray-300 focus:border-blue-500 focus:outline-none rounded"
+                                    className="w-full px-2 py-1 text-sm border border-transparent hover:border-border focus:border-blue-500 focus:outline-none rounded"
                                     placeholder={row[column.column_name] === null ? 'NULL' : ''}
                                   />
                                 ) : (
                                   <div className="max-w-xs truncate" title={String(row[column.column_name] || '')}>
                                     {row[column.column_name] !== null && row[column.column_name] !== undefined 
-                                      ? <span className="text-gray-900">{String(row[column.column_name])}</span>
+                                      ? <span className="text-foreground">{String(row[column.column_name])}</span>
                                       : <span className="text-gray-400 italic text-xs">NULL</span>
                                     }
                                   </div>
@@ -392,7 +392,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="px-6 py-3 border-t border-gray-200 bg-gray-50 rounded-b-xl">
+                <div className="px-6 py-3 border-t border-border bg-background rounded-b-xl">
                   <div className="flex items-center justify-between">
                     <div className="text-sm text-gray-600">
                       Page {currentPage} of {totalPages}
@@ -401,7 +401,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
                       <button
                         onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                         disabled={currentPage === 1}
-                        className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="px-3 py-1 text-sm font-medium text-gray-700 bg-card border border-border rounded-md hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         ←
                       </button>
@@ -427,7 +427,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
                               className={`px-2 py-1 text-sm font-medium rounded-md transition-colors ${
                                 currentPage === pageNum
                                   ? 'bg-blue-600 text-white'
-                                  : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                                  : 'text-gray-700 bg-card border border-border hover:bg-background'
                               }`}
                             >
                               {pageNum}
@@ -439,7 +439,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
                       <button
                         onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                         disabled={currentPage === totalPages}
-                        className="px-3 py-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                        className="px-3 py-1 text-sm font-medium text-gray-700 bg-card border border-border rounded-md hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                       >
                         →
                       </button>
@@ -456,7 +456,7 @@ export default function TableDataModal({ isOpen, onClose, tableData }: TableData
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m13-8l-4 4m0 0l-4-4m4 4V3" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No Data Available</h3>
+                <h3 className="text-lg font-medium text-foreground mb-2">No Data Available</h3>
                 <p className="text-gray-500">This table contains no records to display</p>
               </div>
             </div>

@@ -40,7 +40,7 @@ export default function InteractionList({ interactions, loading }: InteractionLi
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.955 8.955 0 01-2.506-.357c-.47-.142-.923-.364-1.335-.676L3 21l1.032-5.159A8.955 8.955 0 013 13c0-4.418 3.582-8 8-8s8 3.582 8 7z" />
           </svg>
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No interactions yet</h3>
+        <h3 className="text-lg font-medium text-foreground mb-2">No interactions yet</h3>
         <p className="text-gray-500">Start by creating the first interaction with this customer.</p>
       </div>
     )
@@ -49,14 +49,14 @@ export default function InteractionList({ interactions, loading }: InteractionLi
   return (
     <div className="space-y-4">
       {interactions.map((interaction) => (
-        <div key={interaction.system_id} className="bg-white border rounded-lg p-6 hover:shadow-sm transition-shadow">
+        <div key={interaction.system_id} className="bg-card border rounded-lg p-6 hover:shadow-sm transition-shadow">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-start space-x-3">
               <div className="text-2xl">
                 {getInteractionIcon(interaction.interaction_type)}
               </div>
               <div className="flex-1">
-                <h4 className="text-lg font-medium text-gray-900">
+                <h4 className="text-lg font-medium text-foreground">
                   {interaction.subject}
                 </h4>
                 <p className="text-sm text-gray-600 mt-1">
@@ -75,7 +75,7 @@ export default function InteractionList({ interactions, loading }: InteractionLi
           </div>
 
           {interaction.outcome && (
-            <div className="mb-4 p-3 bg-gray-50 rounded-lg">
+            <div className="mb-4 p-3 bg-background rounded-lg">
               <h5 className="text-sm font-medium text-gray-700 mb-1">Outcome:</h5>
               <p className="text-sm text-gray-600">{interaction.outcome}</p>
             </div>
@@ -122,7 +122,7 @@ export default function InteractionList({ interactions, loading }: InteractionLi
             </div>
           )}
 
-          <div className="mt-4 pt-3 border-t border-gray-200">
+          <div className="mt-4 pt-3 border-t border-border">
             <p className="text-xs text-gray-500">
               Created by {interaction.created_by.name} ({interaction.created_by.system_id})
             </p>

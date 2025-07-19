@@ -34,14 +34,14 @@ export default function VaultAccess({ error, setError, onAccessGranted }: VaultA
   return (
     <Layout>
       <div className="max-w-md mx-auto py-16">
-        <div className="bg-white shadow-lg rounded-lg p-8">
+        <div className="bg-card shadow-lg rounded-lg p-8">
           <div className="text-center mb-8">
             <div className="mx-auto h-16 w-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
               <svg className="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Password Vault Access</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-2">Password Vault Access</h2>
             <p className="text-gray-600">Enter the 4-digit access code to unlock the vault</p>
             <div className="mt-2">
               <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
@@ -77,7 +77,7 @@ export default function VaultAccess({ error, setError, onAccessGranted }: VaultA
                     verifyVaultAccess()
                   }
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-2xl font-mono tracking-widest"
+                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-2xl font-mono tracking-widest"
                 placeholder="••••"
                 autoFocus
               />

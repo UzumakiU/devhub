@@ -33,9 +33,9 @@ export default function ViewPasswordModal({
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-card">
         <div className="mt-3">
-          <h3 className="text-lg font-medium text-gray-900 mb-4">
+          <h3 className="text-lg font-medium text-foreground mb-4">
             Enter 4-Digit Access Code
           </h3>
           
@@ -48,7 +48,7 @@ export default function ViewPasswordModal({
               maxLength={4}
               value={accessCode}
               onChange={(e) => setAccessCode(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-2xl font-mono"
+              className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-center text-2xl font-mono"
               placeholder="0000"
             />
           </div>

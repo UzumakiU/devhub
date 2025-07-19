@@ -79,7 +79,7 @@ export default function CustomerList({
     return (
       <div className="animate-pulse space-y-4">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="bg-white p-6 rounded-lg shadow">
+          <div key={i} className="bg-card p-6 rounded-lg shadow">
             <div className="h-4 bg-gray-200 rounded w-1/4 mb-2"></div>
             <div className="h-3 bg-gray-200 rounded w-1/3 mb-2"></div>
             <div className="h-3 bg-gray-200 rounded w-1/2"></div>
@@ -109,7 +109,7 @@ export default function CustomerList({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-medium text-gray-900">
+        <h3 className="text-lg font-medium text-foreground">
           {limit ? `Recent Customers (${customers.length})` : `All Customers (${customers.length})`}
         </h3>
         {showCreateButton && (
@@ -121,12 +121,12 @@ export default function CustomerList({
 
       {/* Customer List */}
       {customers.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-lg shadow">
+        <div className="text-center py-12 bg-card rounded-lg shadow">
           <div className="text-gray-500">
             <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
-            <h3 className="mt-2 text-sm font-medium text-gray-900">No customers</h3>
+            <h3 className="mt-2 text-sm font-medium text-foreground">No customers</h3>
             <p className="mt-1 text-sm text-gray-500">
               Get started by creating your first customer.
             </p>
@@ -135,11 +135,11 @@ export default function CustomerList({
       ) : (
         <div className="grid gap-4">
           {customers.map((customer) => (
-            <div key={customer.system_id} className="bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+            <div key={customer.system_id} className="bg-card p-6 rounded-lg shadow hover:shadow-md transition-shadow">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h4 className="text-lg font-semibold text-gray-900">
+                    <h4 className="text-lg font-semibold text-foreground">
                       {customer.name || 'Unnamed Customer'}
                     </h4>
                     <span className="text-sm text-gray-500">({customer.system_id})</span>

@@ -26,7 +26,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({
   
   const stateClasses = error 
     ? 'border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500' 
-    : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500'
+    : 'border-border focus:ring-blue-500 focus:border-blue-500'
   
   const iconClasses = leftIcon || rightIcon ? 'relative' : ''
   

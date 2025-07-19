@@ -15,7 +15,7 @@ export const ProjectStatus: React.FC<BaseProjectProps> = ({
         value={formData.status}
         onChange={(e) => onChange('status', e.target.value)}
         className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-          errors?.status ? 'border-red-500' : 'border-gray-300'
+          errors?.status ? 'border-red-500' : 'border-border'
         }`}
       >
         {PROJECT_STATUS_OPTIONS.map((option) => (

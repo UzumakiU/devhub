@@ -19,8 +19,8 @@ export const FormGroup: React.FC<FormGroupProps> = ({
 }) => {
   const variantClasses = {
     default: '',
-    bordered: 'border border-gray-200 rounded-lg p-6',
-    elevated: 'bg-white shadow-sm border border-gray-200 rounded-lg p-6'
+    bordered: 'border border-border rounded-lg p-6',
+    elevated: 'bg-card shadow-sm border border-border rounded-lg p-6'
   }
   
   return (
@@ -28,7 +28,7 @@ export const FormGroup: React.FC<FormGroupProps> = ({
       {(title || description) && (
         <div className="space-y-1">
           {title && (
-            <h3 className="text-lg font-medium text-gray-900">
+            <h3 className="text-lg font-medium text-foreground">
               {title}
             </h3>
           )}

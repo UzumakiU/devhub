@@ -8,7 +8,7 @@ interface LoadingSkeletonProps {
 
 const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ rows = 3 }) => {
   return (
-    <div className="bg-white shadow rounded-lg p-6">
+    <div className="bg-card shadow rounded-lg p-6">
       <div className="animate-pulse">
         <div className="h-6 bg-gray-200 rounded w-1/4 mb-4"></div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -28,14 +28,14 @@ interface ErrorDisplayProps {
 
 const ErrorDisplay: React.FC<ErrorDisplayProps> = ({ message, onRetry }) => {
   return (
-    <div className="bg-white shadow rounded-lg p-6">
+    <div className="bg-card shadow rounded-lg p-6">
       <div className="text-center text-red-600">
         <div className="mb-4">
           <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.728-.833-2.498 0L4.316 15.5c-.77.833.192 2.5 1.732 2.5z" />
           </svg>
         </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">Error loading data</h3>
+        <h3 className="text-lg font-medium text-foreground mb-2">Error loading data</h3>
         <p className="text-sm text-gray-600 mb-4">{message}</p>
         <button 
           onClick={onRetry}

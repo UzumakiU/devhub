@@ -156,15 +156,15 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
 
   if (!tableName) {
     return (
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow-lg border border-border p-6">
         <div className="text-center py-8">
-          <div className="mx-auto h-12 w-12 text-gray-400">
+          <div className="mx-auto h-12 w-12 text-muted-foreground">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 1.79 4 4 4h8c0-1.1.9-2 2-2V7c0-2.21-1.79-4-4-4H6c-1.1 0-2 .9-2 2z" />
             </svg>
           </div>
-          <h3 className="mt-2 text-sm font-medium text-gray-900">No table selected</h3>
-          <p className="mt-1 text-sm text-gray-500">Choose a table from the left panel to view its details</p>
+          <h3 className="mt-2 text-sm font-medium text-foreground">No table selected</h3>
+          <p className="mt-1 text-sm text-muted-foreground">Choose a table from the left panel to view its details</p>
         </div>
       </div>
     )
@@ -172,12 +172,12 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow-lg border border-border p-6">
         <div className="animate-pulse">
-          <div className="h-6 bg-gray-200 rounded w-1/3 mb-4"></div>
+          <div className="h-6 bg-muted rounded w-1/3 mb-4"></div>
           <div className="space-y-3">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-4 bg-gray-200 rounded"></div>
+              <div key={i} className="h-4 bg-muted rounded"></div>
             ))}
           </div>
         </div>
@@ -187,21 +187,21 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
 
   if (!tableData) {
     return (
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-card rounded-lg shadow-lg border border-border p-6">
         <div className="text-center py-8">
-          <p className="text-gray-500">Failed to load table details</p>
+          <p className="text-muted-foreground">Failed to load table details</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="bg-white rounded-lg shadow">
-      <div className="px-6 py-4 border-b border-gray-200">
+    <div className="bg-card rounded-lg shadow-lg border border-border">
+      <div className="px-6 py-4 border-b border-border">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-medium text-gray-900">{tableData.table_name}</h3>
-            <p className="text-sm text-gray-500">{tableData.total_rows?.toLocaleString() || 0} records</p>
+            <h3 className="text-lg font-medium text-foreground">{tableData.table_name}</h3>
+            <p className="text-sm text-muted-foreground">{tableData.total_rows?.toLocaleString() || 0} records</p>
           </div>
           
           <div className="flex space-x-2">
@@ -209,7 +209,7 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
             {tableData.data && Array.isArray(tableData.data) && tableData.data.length > 0 && (
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200 shadow-md hover:shadow-lg"
               >
                 <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -221,7 +221,7 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
             {/* Add Column Button */}
             <button
               onClick={() => setIsAddingColumn(true)}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200"
+              className="inline-flex items-center px-4 py-2 border border-border text-sm font-medium rounded-md text-secondary-foreground bg-secondary hover:bg-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200 shadow-md hover:shadow-lg"
             >
               <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -234,21 +234,21 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
       
       <div className="p-6 space-y-6">
         {/* Columns Section */}
-        <div className="border border-gray-200 rounded-lg">
+        <div className="border border-border rounded-lg">
           <button
             onClick={() => toggleSection('columns')}
-            className="w-full px-4 py-3 bg-gray-50 rounded-t-lg text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+            className="w-full px-4 py-3 bg-secondary/50 rounded-t-lg text-left flex items-center justify-between hover:bg-secondary/70 transition-colors"
           >
             <div className="flex items-center">
-              <svg className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-5 w-5 text-muted-foreground mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
               </svg>
-              <h4 className="text-md font-medium text-gray-900">
+              <h4 className="text-md font-medium text-foreground">
                 Columns ({tableData.columns?.length || 0})
               </h4>
             </div>
             <svg 
-              className={`h-5 w-5 text-gray-500 transform transition-transform ${expandedSections.columns ? 'rotate-180' : ''}`} 
+              className={`h-5 w-5 text-muted-foreground transform transition-transform ${expandedSections.columns ? 'rotate-180' : ''}`} 
               fill="none" 
               viewBox="0 0 24 24" 
               stroke="currentColor"
@@ -261,20 +261,20 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
             <div className="p-4">
               {/* Add Column Form */}
               {isAddingColumn && (
-                <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <h5 className="font-medium text-blue-900 mb-3">Add New Column</h5>
+                <div className="mb-4 p-4 bg-accent/50 rounded-lg border border-primary/20 shadow-lg">
+                  <h5 className="font-medium text-accent-foreground mb-3">Add New Column</h5>
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                     <input
                       type="text"
                       placeholder="Column name"
                       value={newColumn.column_name}
                       onChange={(e) => setNewColumn(prev => ({ ...prev, column_name: e.target.value }))}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                     />
                     <select
                       value={newColumn.data_type}
                       onChange={(e) => setNewColumn(prev => ({ ...prev, data_type: e.target.value }))}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-3 py-2 bg-input border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                     >
                       <option value="VARCHAR(255)">VARCHAR(255)</option>
                       <option value="TEXT">TEXT</option>
@@ -289,7 +289,7 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
                     <select
                       value={newColumn.is_nullable}
                       onChange={(e) => setNewColumn(prev => ({ ...prev, is_nullable: e.target.value }))}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-3 py-2 bg-input border border-border rounded-md text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                     >
                       <option value="YES">Nullable</option>
                       <option value="NO">Not Null</option>
@@ -299,19 +299,19 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
                       placeholder="Default value"
                       value={newColumn.column_default}
                       onChange={(e) => setNewColumn(prev => ({ ...prev, column_default: e.target.value }))}
-                      className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="px-3 py-2 bg-input border border-border rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                     />
                   </div>
                   <div className="flex space-x-2 mt-3">
                     <button
                       onClick={handleAddColumn}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm"
+                      className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 text-sm transition-all shadow-md hover:shadow-lg"
                     >
                       Add Column
                     </button>
                     <button
                       onClick={() => setIsAddingColumn(false)}
-                      className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 text-sm"
+                      className="px-4 py-2 bg-secondary text-secondary-foreground rounded-md hover:bg-accent text-sm transition-all shadow-md hover:shadow-lg"
                     >
                       Cancel
                     </button>
@@ -320,30 +320,30 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
               )}
 
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full divide-y divide-border">
+                  <thead className="bg-muted/50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nullable</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Default</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Name</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Type</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Nullable</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Default</th>
+                      <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-card divide-y divide-border">
                     {tableData.columns && Array.isArray(tableData.columns) ? tableData.columns.map((column, index) => (
-                      <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <tr key={index} className="hover:bg-muted/30 transition-colors">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
                           {column.column_name}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
                           {column.data_type}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">
                           <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                             column.is_nullable === 'YES' 
-                              ? 'bg-yellow-100 text-yellow-800' 
-                              : 'bg-green-100 text-green-800'
+                              ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300' 
+                              : 'bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300'
                           }`}>
                             {column.is_nullable === 'YES' ? 'Nullable' : 'Not Null'}
                           </span>
@@ -387,16 +387,16 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
         </div>
 
         {/* Data Overview Section */}
-        <div className="border border-gray-200 rounded-lg">
+        <div className="border border-border rounded-lg">
           <button
             onClick={() => toggleSection('data')}
-            className="w-full px-4 py-3 bg-gray-50 rounded-t-lg text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+            className="w-full px-4 py-3 bg-background rounded-t-lg text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
           >
             <div className="flex items-center">
               <svg className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <h4 className="text-md font-medium text-gray-900">
+              <h4 className="text-md font-medium text-foreground">
                 Data Overview ({tableData.total_rows?.toLocaleString() || 0} records)
               </h4>
             </div>
@@ -442,11 +442,11 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
 
                   {/* Quick data preview */}
                   {tableData.data.length > 0 && (
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <h5 className="text-sm font-medium text-gray-900 mb-2">Sample Data (first 3 rows)</h5>
+                    <div className="bg-background rounded-lg p-4">
+                      <h5 className="text-sm font-medium text-foreground mb-2">Sample Data (first 3 rows)</h5>
                       <div className="overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-200">
-                          <thead className="bg-white">
+                          <thead className="bg-card">
                             <tr>
                               {tableData.columns?.slice(0, 4).map((column) => (
                                 <th key={column.column_name} className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">
@@ -458,11 +458,11 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
                               )}
                             </tr>
                           </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
+                          <tbody className="bg-card divide-y divide-gray-200">
                             {tableData.data.slice(0, 3).map((row, index) => (
                               <tr key={index}>
                                 {tableData.columns?.slice(0, 4).map((column) => (
-                                  <td key={column.column_name} className="px-3 py-2 text-sm text-gray-900">
+                                  <td key={column.column_name} className="px-3 py-2 text-sm text-foreground">
                                     <div className="max-w-20 truncate">
                                       {row[column.column_name] !== null ? String(row[column.column_name]) : 
                                         <span className="text-gray-400">NULL</span>}
@@ -481,7 +481,7 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
                   )}
                 </div>
               ) : (
-                <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <div className="bg-background rounded-lg p-4 border border-border">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
                       <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -501,16 +501,16 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
 
         {/* Relationships Section */}
         {tableData.relationships && Array.isArray(tableData.relationships) && tableData.relationships.length > 0 && (
-          <div className="border border-gray-200 rounded-lg">
+          <div className="border border-border rounded-lg">
             <button
               onClick={() => toggleSection('relationships')}
-              className="w-full px-4 py-3 bg-gray-50 rounded-t-lg text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+              className="w-full px-4 py-3 bg-background rounded-t-lg text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
             >
               <div className="flex items-center">
                 <svg className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.102m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
-                <h4 className="text-md font-medium text-gray-900">
+                <h4 className="text-md font-medium text-foreground">
                   Relationships ({tableData.relationships.length})
                 </h4>
               </div>
@@ -528,7 +528,7 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
               <div className="p-4">
                 <div className="space-y-3">
                   {tableData.relationships.map((rel, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div key={index} className="flex items-center justify-between p-3 bg-background rounded-lg border border-border">
                       <div className="flex items-center">
                         <svg className="h-5 w-5 text-gray-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.102m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -549,7 +549,7 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
                   ))}
                 </div>
                 
-                <button className="mt-3 inline-flex items-center px-3 py-1 border border-dashed border-gray-300 text-sm text-gray-600 rounded-md hover:border-gray-400 hover:text-gray-700 transition-colors">
+                <button className="mt-3 inline-flex items-center px-3 py-1 border border-dashed border-border text-sm text-gray-600 rounded-md hover:border-gray-400 hover:text-gray-700 transition-colors">
                   <svg className="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
@@ -561,16 +561,16 @@ export default function DatabaseTableDetails({ tableName }: DatabaseTableDetails
         )}
 
         {/* Constraints Section */}
-        <div className="border border-gray-200 rounded-lg">
+        <div className="border border-border rounded-lg">
           <button
             onClick={() => toggleSection('constraints')}
-            className="w-full px-4 py-3 bg-gray-50 rounded-t-lg text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
+            className="w-full px-4 py-3 bg-background rounded-t-lg text-left flex items-center justify-between hover:bg-gray-100 transition-colors"
           >
             <div className="flex items-center">
               <svg className="h-5 w-5 text-gray-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
-              <h4 className="text-md font-medium text-gray-900">Constraints & Indexes</h4>
+              <h4 className="text-md font-medium text-foreground">Constraints & Indexes</h4>
             </div>
             <svg 
               className={`h-5 w-5 text-gray-500 transform transition-transform ${expandedSections.constraints ? 'rotate-180' : ''}`} 

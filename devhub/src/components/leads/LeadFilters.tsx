@@ -10,10 +10,10 @@ interface LeadFiltersProps {
 
 export default function LeadFilters({ selectedStage, onStageChange, leadCount }: LeadFiltersProps) {
   return (
-    <div className="bg-white p-4 rounded-lg shadow mb-6">
+    <div className="bg-card p-4 rounded-lg shadow mb-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h3 className="text-lg font-medium text-gray-900">Leads</h3>
+          <h3 className="text-lg font-medium text-foreground">Leads</h3>
           <p className="text-sm text-gray-600">
             {leadCount} {leadCount === 1 ? 'lead' : 'leads'} found
           </p>
@@ -28,7 +28,7 @@ export default function LeadFilters({ selectedStage, onStageChange, leadCount }:
               id="stage-filter"
               value={selectedStage}
               onChange={(e) => onStageChange(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {LEAD_STAGES.map((stage) => (
                 <option key={stage.value} value={stage.value}>

@@ -136,7 +136,7 @@ export default function UserManagementPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen w-full bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
@@ -155,7 +155,7 @@ export default function UserManagementPage() {
         {/* Page Header */}
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">User Management</h1>
+            <h1 className="text-3xl font-bold text-foreground">User Management</h1>
             <p className="mt-1 text-sm text-gray-600">
               Manage users, roles, and permissions
             </p>
@@ -189,9 +189,9 @@ export default function UserManagementPage() {
           )}
 
           {/* Users Table */}
-          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+          <div className="bg-card shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">
+              <h3 className="text-lg leading-6 font-medium text-foreground">
                 All Users ({users.length})
               </h3>
               <p className="mt-1 max-w-2xl text-sm text-gray-500">
@@ -199,10 +199,10 @@ export default function UserManagementPage() {
               </p>
             </div>
             
-            <div className="border-t border-gray-200">
+            <div className="border-t border-border">
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
+                  <thead className="bg-background">
                     <tr>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         User
@@ -227,13 +227,13 @@ export default function UserManagementPage() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-card divide-y divide-gray-200">
                     {users.map((user) => (
                       <tr key={user.system_id}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div>
-                              <div className="text-sm font-medium text-gray-900">
+                              <div className="text-sm font-medium text-foreground">
                                 {user.full_name}
                               </div>
                               <div className="text-sm text-gray-500">
@@ -242,10 +242,10 @@ export default function UserManagementPage() {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                           {user.email}
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
                           <div>
                             <div className="font-medium">{user.tenant_name}</div>
                             <div className="text-gray-500">{user.tenant_id}</div>
@@ -312,9 +312,9 @@ export default function UserManagementPage() {
           {/* Password Reset Modal */}
           {showPasswordModal && selectedUser && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-card">
             <div className="mt-3">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-foreground mb-4">
                 Reset Password for {selectedUser.display_id}
               </h3>
               
@@ -326,7 +326,7 @@ export default function UserManagementPage() {
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   placeholder="Enter new password"
                 />
               </div>

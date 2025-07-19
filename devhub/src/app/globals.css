@@ -1,26 +1,657 @@
 @import "tailwindcss";
 
 :root {
+  /* Light theme colors */
   --background: #ffffff;
   --foreground: #171717;
+  --card: #ffffff;
+  --card-foreground: #171717;
+  --popover: #ffffff;
+  --popover-foreground: #171717;
+  --primary: #0369a1;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #475569;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0369a1;
+  --radius: 0.5rem;
+  
+  /* Status colors that adapt to theme */
+  --success: #22c55e;
+  --success-foreground: #ffffff;
+  --warning: #f59e0b;
+  --warning-foreground: #ffffff;
+  --error: #ef4444;
+  --error-foreground: #ffffff;
+  --info: #3b82f6;
+  --info-foreground: #ffffff;
+  
+  /* Semantic colors */
+  --stats-positive: #22c55e;
+  --stats-negative: #ef4444;
+  --stats-neutral: #64748b;
+}
+
+.dark {
+  /* Dark theme colors with elegant darker cyan borders - Lighter version */
+  --background: #1a1a1a;
+  --foreground: #f8fafc;
+  --card: #262626;
+  --card-foreground: #f8fafc;
+  --popover: #262626;
+  --popover-foreground: #f8fafc;
+  --primary: #0891b2;
+  --primary-foreground: #f8fafc;
+  --secondary: #374151;
+  --secondary-foreground: #f8fafc;
+  --muted: #374151;
+  --muted-foreground: #d1d5db;
+  --accent: #22d3ee;
+  --accent-foreground: #1a1a1a;
+  --destructive: #dc2626;
+  --destructive-foreground: #f8fafc;
+  --border: #22d3ee;
+  --input: #374151;
+  --ring: #06b6d4;
+  --table-border: #67e8f9;
+  --shadow: rgba(34, 211, 238, 0.15);
+  --shadow-lg: rgba(34, 211, 238, 0.25);
+  
+  /* Status colors that adapt to theme */
+  --success: #10b981;
+  --success-foreground: #f8fafc;
+  --warning: #f59e0b;
+  --warning-foreground: #f8fafc;
+  --error: #ef4444;
+  --error-foreground: #f8fafc;
+  --info: #06b6d4;
+  --info-foreground: #f8fafc;
+  
+  /* Semantic colors */
+  --stats-positive: #10b981;
+  --stats-negative: #ef4444;
+  --stats-neutral: #9ca3af;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
+}
+
+html {
+  width: 100%;
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#__next {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Full-width layout enforcement */
+.container, .max-w-7xl, .max-w-6xl, .max-w-5xl, .max-w-4xl, .max-w-3xl, .max-w-2xl, .max-w-xl {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* Override any max-width constraints in components */
+[class*="max-w-"] {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* Remove margin auto centering while keeping full width */
+.mx-auto {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: none !important;
+  width: 100% !important;
+}
+
+/* Ensure main layout elements take full width */
+main, section, article, div[class*="container"] {
+  width: 100%;
+}
+
+/* Override padding-based centering */
+.px-4, .px-6, .px-8 {
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+/* Full viewport layout */
+.min-h-screen {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+/* Dark theme specific styles */
+.dark {
+  /* Enhanced shadows for dark theme */
+  --tw-shadow: 0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow);
+  --tw-shadow-colored: 0 10px 15px -3px var(--shadow), 0 4px 6px -2px var(--shadow);
+  --tw-shadow-lg: 0 25px 50px -12px var(--shadow-lg);
+  --tw-shadow-xl: 0 25px 50px -12px var(--shadow-lg);
+}
+
+/* Custom scrollbar for dark theme */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Enhanced table styling for dark theme */
+.dark table {
+  border-color: var(--table-border);
+}
+
+.dark th {
+  background: var(--muted);
+  border-color: var(--table-border);
+}
+
+.dark td {
+  border-color: var(--table-border);
+}
+
+.dark tr:hover {
+  background: rgba(34, 211, 238, 0.12);
+}
+
+/* Enhanced form elements */
+.dark input, .dark textarea, .dark select {
+  background: var(--input);
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+.dark input:focus, .dark textarea:focus, .dark select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2);
+}
+
+/* Enhanced buttons */
+.dark button {
+  transition: all 0.2s ease;
+}
+
+.dark button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(34, 211, 238, 0.3);
+}
+
+/* Enhanced cards */
+.dark .card {
+  background: var(--card);
+  border-color: var(--border);
+  box-shadow: 0 4px 6px -1px var(--shadow);
+}
+
+.dark .card:hover {
+  box-shadow: 0 10px 15px -3px var(--shadow-lg);
+}
+
+/* Global theme overrides for hardcoded colors */
+/* This ensures all white backgrounds become theme-aware */
+.bg-white {
+  background-color: var(--card) !important;
+  color: var(--card-foreground) !important;
+}
+
+.text-gray-900 {
+  color: var(--foreground) !important;
+}
+
+.text-gray-700 {
+  color: var(--card-foreground) !important;
+}
+
+.text-gray-600 {
+  color: var(--card-foreground) !important;
+  opacity: 0.9;
+}
+
+.text-gray-500 {
+  color: var(--card-foreground) !important;
+  opacity: 0.8;
+}
+
+.text-gray-400 {
+  color: var(--card-foreground) !important;
+  opacity: 0.7;
+}
+
+.border-gray-200 {
+  border-color: var(--border) !important;
+}
+
+.border-gray-300 {
+  border-color: var(--border) !important;
+}
+
+.bg-gray-50 {
+  background-color: var(--muted) !important;
+}
+
+.bg-gray-100 {
+  background-color: var(--muted) !important;
+}
+
+/* Ensure all table elements use theme colors */
+table {
+  background-color: var(--card);
+  color: var(--card-foreground);
+}
+
+th {
+  background-color: var(--muted);
+  color: var(--muted-foreground);
+  border-color: var(--border);
+}
+
+td {
+  border-color: var(--border);
+  color: var(--card-foreground);
+}
+
+/* Button theme overrides */
+.bg-blue-600 {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+}
+
+.bg-blue-700 {
+  background-color: var(--primary) !important;
+  color: var(--primary-foreground) !important;
+}
+
+.hover\:bg-blue-700:hover {
+  background-color: var(--primary) !important;
+  opacity: 0.9;
+}
+
+/* Enhanced text size overrides for better readability */
+.text-xs {
+  font-size: 0.8rem !important; /* Increased from 0.75rem */
+  line-height: 1.2 !important;
+}
+
+.text-sm {
+  font-size: 0.9rem !important; /* Increased from 0.875rem */
+  line-height: 1.3 !important;
+}
+
+/* Enhanced color visibility for status indicators */
+.text-red-600 {
+  color: #dc2626 !important;
+  font-weight: 500 !important;
+}
+
+.text-red-700 {
+  color: #b91c1c !important;
+  font-weight: 500 !important;
+}
+
+.text-red-800 {
+  color: #991b1b !important;
+  font-weight: 600 !important;
+}
+
+.text-green-600 {
+  color: #16a34a !important;
+  font-weight: 500 !important;
+}
+
+.text-green-700 {
+  color: #15803d !important;
+  font-weight: 500 !important;
+}
+
+.text-green-800 {
+  color: #166534 !important;
+  font-weight: 600 !important;
+}
+
+.text-yellow-600 {
+  color: #ca8a04 !important;
+  font-weight: 500 !important;
+}
+
+.text-yellow-700 {
+  color: #a16207 !important;
+  font-weight: 500 !important;
+}
+
+.text-yellow-800 {
+  color: #854d0e !important;
+  font-weight: 600 !important;
+}
+
+.text-orange-600 {
+  color: #ea580c !important;
+  font-weight: 500 !important;
+}
+
+.text-orange-700 {
+  color: #c2410c !important;
+  font-weight: 500 !important;
+}
+
+.text-orange-800 {
+  color: #9a3412 !important;
+  font-weight: 600 !important;
+}
+
+.text-blue-600 {
+  color: #2563eb !important;
+  font-weight: 500 !important;
+}
+
+.text-blue-700 {
+  color: #1d4ed8 !important;
+  font-weight: 500 !important;
+}
+
+.text-blue-800 {
+  color: #1e40af !important;
+  font-weight: 600 !important;
+}
+
+/* Dark theme overrides for better visibility */
+.dark .text-red-600 {
+  color: #f87171 !important;
+}
+
+.dark .text-red-700 {
+  color: #ef4444 !important;
+}
+
+.dark .text-red-800 {
+  color: #dc2626 !important;
+}
+
+.dark .text-green-600 {
+  color: #4ade80 !important;
+}
+
+.dark .text-green-700 {
+  color: #22c55e !important;
+}
+
+.dark .text-green-800 {
+  color: #16a34a !important;
+}
+
+.dark .text-yellow-600 {
+  color: #facc15 !important;
+}
+
+.dark .text-yellow-700 {
+  color: #eab308 !important;
+}
+
+.dark .text-yellow-800 {
+  color: #ca8a04 !important;
+}
+
+.dark .text-orange-600 {
+  color: #fb923c !important;
+}
+
+.dark .text-orange-700 {
+  color: #f97316 !important;
+}
+
+.dark .text-orange-800 {
+  color: #ea580c !important;
+}
+
+.dark .text-blue-600 {
+  color: #60a5fa !important;
+}
+
+.dark .text-blue-700 {
+  color: #3b82f6 !important;
+}
+
+.dark .text-blue-800 {
+  color: #2563eb !important;
+}
+
+/* Enhanced status badge backgrounds for better visibility */
+.bg-gray-100 {
+  background-color: #f1f5f9 !important;
+}
+
+.bg-blue-100 {
+  background-color: #dbeafe !important;
+}
+
+.bg-green-100 {
+  background-color: #dcfce7 !important;
+}
+
+.bg-yellow-100 {
+  background-color: #fef3c7 !important;
+}
+
+.bg-orange-100 {
+  background-color: #fed7aa !important;
+}
+
+.bg-red-100 {
+  background-color: #fecaca !important;
+}
+
+/* Dark theme status badge backgrounds */
+.dark .bg-gray-100 {
+  background-color: #4b5563 !important;
+}
+
+.dark .bg-blue-100 {
+  background-color: rgba(59, 130, 246, 0.25) !important;
+}
+
+.dark .bg-green-100 {
+  background-color: rgba(34, 197, 94, 0.25) !important;
+}
+
+.dark .bg-yellow-100 {
+  background-color: rgba(234, 179, 8, 0.25) !important;
+}
+
+.dark .bg-orange-100 {
+  background-color: rgba(249, 115, 22, 0.25) !important;
+}
+
+.dark .bg-red-100 {
+  background-color: rgba(239, 68, 68, 0.25) !important;
+}
+
+/* General text improvements for better readability */
+p, span, div {
+  line-height: 1.6 !important;
+}
+
+/* Minimum font size enforcement */
+* {
+  min-height: 1px;
+}
+
+/* Improved small text readability */
+.text-muted-foreground {
+  color: var(--muted-foreground) !important;
+  font-weight: 500 !important;
+}
+
+/* Better focus states for accessibility */
+*:focus {
+  outline: 2px solid var(--primary) !important;
+  outline-offset: 2px !important;
+}
+
+/* Enhanced table text visibility */
+table td, table th {
+  line-height: 1.5 !important;
+  padding: 0.75rem !important;
+}
+
+table .text-sm {
+  font-size: 0.9rem !important;
+}
+
+/* Enhanced button text */
+button {
+  font-weight: 500 !important;
+  letter-spacing: 0.025em !important;
+}
+
+/* Better spacing for status badges */
+.inline-flex.items-center {
+  padding: 0.375rem 0.75rem !important;
+  font-weight: 600 !important;
+  border-radius: 0.375rem !important;
+}
+
+/* Full-screen layout enforcement */
+main, section, article, .main-content {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Ensure all page-level containers are full-width */
+.page-container, .container-fluid, .full-width {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Override any grid or flex containers that might limit width */
+.grid, .flex {
+  width: 100% !important;
+}
+
+/* Ensure components with theme classes use full width */
+.bg-card, .bg-background, .bg-muted {
+  width: 100% !important;
+}
+
+/* Additional dark theme improvements for lighter background */
+.dark {
+  /* Enhanced contrast for the lighter dark theme */
+}
+
+.dark .bg-card {
+  background-color: var(--card) !important;
+  border: 1px solid rgba(34, 211, 238, 0.2) !important;
+}
+
+.dark .border-gray-100:not(.bg-gray-100) {
+  border-color: rgba(34, 211, 238, 0.3) !important;
+}
+
+.dark .border-gray-200:not(.bg-gray-200) {
+  border-color: rgba(34, 211, 238, 0.4) !important;
+}
+
+/* Better visibility for form elements in lighter dark theme */
+.dark input:not(:focus), .dark textarea:not(:focus), .dark select:not(:focus) {
+  border-color: rgba(34, 211, 238, 0.3) !important;
+}
+
+/* Enhanced shadow for the lighter dark theme */
+.dark .shadow, .dark .shadow-sm, .dark .shadow-md {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dark .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Ensure all dashboard and CRM components use theme colors consistently */
+.dashboard-grid, .crm-container, .table-container {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  width: 100% !important;
+}
+
+/* Apply text improvements to all text elements */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+}
+
+/* Ensure proper spacing and visibility for all cards */
+.card, .panel, .widget {
+  background-color: var(--card) !important;
+  color: var(--card-foreground) !important;
+  border: 1px solid var(--border) !important;
+}
+
+/* Apply improvements to all buttons */
+.btn, button:not(.unstyled) {
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Ensure all tables have proper theming */
+.table, table {
+  width: 100% !important;
+  background-color: var(--card) !important;
+  color: var(--card-foreground) !important;
 }
